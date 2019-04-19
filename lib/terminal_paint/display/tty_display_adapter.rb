@@ -145,7 +145,7 @@ module TerminalPaint
           @output.print(TTY::Cursor.clear_screen)
           display_string = @new_buffer.map do |line|
             line.map { |char| char || ' ' }.join('')
-          end.join($INPUT_RECORD_SEPARATOR)
+          end.join($/)
 
           @output.print(display_string)
         end

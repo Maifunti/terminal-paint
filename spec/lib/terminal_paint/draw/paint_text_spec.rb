@@ -54,7 +54,7 @@ describe TerminalPaint::Draw::PaintText do
           ['    ',
            '    ',
            '    ',
-           '    '].join($INPUT_RECORD_SEPARATOR)
+           '    '].join($/)
         end
         let(:text) { nil }
 
@@ -69,7 +69,7 @@ describe TerminalPaint::Draw::PaintText do
           ['    ',
            '    ',
            '    ',
-           '    '].join($INPUT_RECORD_SEPARATOR)
+           '    '].join($/)
         end
         let(:text) { nil }
 
@@ -85,7 +85,7 @@ describe TerminalPaint::Draw::PaintText do
           ['Hello Paint',
            '           ',
            '           ',
-           '           '].join($INPUT_RECORD_SEPARATOR)
+           '           '].join($/)
         end
 
         specify do
@@ -100,7 +100,7 @@ describe TerminalPaint::Draw::PaintText do
           ['Hello Pai',
            '         ',
            '         ',
-           '         '].join($INPUT_RECORD_SEPARATOR)
+           '         '].join($/)
         end
 
         specify do
@@ -115,7 +115,7 @@ describe TerminalPaint::Draw::PaintText do
           ['         ',
            '         ',
            '         ',
-           '         '].join($INPUT_RECORD_SEPARATOR)
+           '         '].join($/)
         end
 
         specify do
@@ -130,7 +130,7 @@ describe TerminalPaint::Draw::PaintText do
           ['          ',
            ' Terminal ',
            '   Paint  ',
-           '          '].join($INPUT_RECORD_SEPARATOR)
+           '          '].join($/)
         end
 
         specify do
@@ -146,7 +146,7 @@ describe TerminalPaint::Draw::PaintText do
           ['          ',
            ' Terminal ',
            '   Paint  ',
-           '          '].join($INPUT_RECORD_SEPARATOR)
+           '          '].join($/)
         end
 
         specify do
@@ -162,7 +162,7 @@ describe TerminalPaint::Draw::PaintText do
           ['Happy     ',
            ' Terminal ',
            '   Paint  ',
-           '    Skills'].join($INPUT_RECORD_SEPARATOR)
+           '    Skills'].join($/)
         end
 
         specify do

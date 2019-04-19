@@ -74,7 +74,7 @@ describe TerminalPaint::Draw::Border do
           ['    ',
            ' +  ',
            '    ',
-           '    '].join($INPUT_RECORD_SEPARATOR)
+           '    '].join($/)
         end
 
         specify do
@@ -88,7 +88,7 @@ describe TerminalPaint::Draw::Border do
           ['    ',
            ' ╝  ',
            '    ',
-           '    '].join($INPUT_RECORD_SEPARATOR)
+           '    '].join($/)
         end
 
         specify do
@@ -102,7 +102,7 @@ describe TerminalPaint::Draw::Border do
           ['+--+',
            '    ',
            '    ',
-           '    '].join($INPUT_RECORD_SEPARATOR)
+           '    '].join($/)
         end
 
         specify do
@@ -116,7 +116,7 @@ describe TerminalPaint::Draw::Border do
           [' +  ',
            ' |  ',
            ' |  ',
-           ' +  '].join($INPUT_RECORD_SEPARATOR)
+           ' +  '].join($/)
         end
 
         specify do
@@ -130,7 +130,7 @@ describe TerminalPaint::Draw::Border do
           ['+--+',
            '+--+',
            '    ',
-           '    '].join($INPUT_RECORD_SEPARATOR)
+           '    '].join($/)
         end
 
         specify do
@@ -144,7 +144,7 @@ describe TerminalPaint::Draw::Border do
           ['    ',
            '+--+',
            '|  |',
-           '+--+'].join($INPUT_RECORD_SEPARATOR)
+           '+--+'].join($/)
         end
 
         specify do
@@ -161,7 +161,7 @@ describe TerminalPaint::Draw::Border do
            '|        |',
            '|        |',
            '|        |',
-           '+--------+'].join($INPUT_RECORD_SEPARATOR)
+           '+--------+'].join($/)
         end
 
         specify do
@@ -179,7 +179,7 @@ describe TerminalPaint::Draw::Border do
            '|║┌────┐║|',
            '|║└────┘║|',
            '|╚══════╝|',
-           '+--------+'].join($INPUT_RECORD_SEPARATOR)
+           '+--------+'].join($/)
         end
 
         specify do
@@ -208,7 +208,7 @@ describe TerminalPaint::Draw::Border do
           ['+--------+',
            '|        |',
            '|        |',
-           '+--------+'].join($INPUT_RECORD_SEPARATOR)
+           '+--------+'].join($/)
         end
 
         specify do

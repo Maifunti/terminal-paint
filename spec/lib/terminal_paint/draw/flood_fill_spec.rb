@@ -72,7 +72,7 @@ describe TerminalPaint::Draw::FloodFill do
            '      ',
            '      ',
            '      ',
-           '      '].join($INPUT_RECORD_SEPARATOR)
+           '      '].join($/)
         end
 
         let(:post_state) do
@@ -81,7 +81,7 @@ describe TerminalPaint::Draw::FloodFill do
            '******',
            '******',
            '******',
-           '******'].join($INPUT_RECORD_SEPARATOR)
+           '******'].join($/)
         end
 
         specify do
@@ -97,7 +97,7 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            'XXXXXX',
            'XXXXXX',
-           'XXXXXX'].join($INPUT_RECORD_SEPARATOR)
+           'XXXXXX'].join($/)
         end
 
         let(:post_state) do
@@ -106,7 +106,7 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            'XXXXXX',
            'XXXXXX',
-           'XXXXXX'].join($INPUT_RECORD_SEPARATOR)
+           'XXXXXX'].join($/)
         end
 
         specify do
@@ -122,7 +122,7 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            'XXXXXX',
            'XXXXXX',
-           'XXXXXX'].join($INPUT_RECORD_SEPARATOR)
+           'XXXXXX'].join($/)
         end
 
         let(:post_state) do
@@ -131,7 +131,7 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            'XXXXXX',
            'XXXXXX',
-           'XXXXXX'].join($INPUT_RECORD_SEPARATOR)
+           'XXXXXX'].join($/)
         end
 
         specify do
@@ -147,7 +147,7 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            'XXXXXX',
            'XXXXXX',
-           'XXXXXX'].join($INPUT_RECORD_SEPARATOR)
+           'XXXXXX'].join($/)
         end
 
         let(:post_state) do
@@ -156,7 +156,7 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            'XXXXXX',
            'XXXXXX',
-           'XXXXXX'].join($INPUT_RECORD_SEPARATOR)
+           'XXXXXX'].join($/)
         end
 
         specify do
@@ -172,7 +172,7 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            'XXXXXX',
            'XXXX  ',
-           'XXX XX'].join($INPUT_RECORD_SEPARATOR)
+           'XXX XX'].join($/)
         end
 
         let(:post_state) do
@@ -181,7 +181,7 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            'XXXXXX',
            'XXXX  ',
-           'XXX **'].join($INPUT_RECORD_SEPARATOR)
+           'XXX **'].join($/)
         end
 
         specify do
@@ -202,7 +202,7 @@ describe TerminalPaint::Draw::FloodFill do
            '  XXXX',
            'XXXXXX',
            'XXXXXX',
-           'XXXXXX'].join($INPUT_RECORD_SEPARATOR)
+           'XXXXXX'].join($/)
         end
 
         let(:post_state) do
@@ -211,7 +211,7 @@ describe TerminalPaint::Draw::FloodFill do
            '  XXXX',
            'XXXXXX',
            'XXXXXX',
-           'XXXXXX'].join($INPUT_RECORD_SEPARATOR)
+           'XXXXXX'].join($/)
         end
 
         specify do
@@ -232,7 +232,7 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            'XXXX  ',
            'XXX XX',
-           'XXX XX'].join($INPUT_RECORD_SEPARATOR)
+           'XXX XX'].join($/)
         end
 
         let(:post_state) do
@@ -241,7 +241,7 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            'XXXX  ',
            'XXX **',
-           'XXX **'].join($INPUT_RECORD_SEPARATOR)
+           'XXX **'].join($/)
         end
 
         specify do
@@ -262,7 +262,7 @@ describe TerminalPaint::Draw::FloodFill do
            '   X  ',
            '   X  ',
            '   X  ',
-           '   X  '].join($INPUT_RECORD_SEPARATOR)
+           '   X  '].join($/)
         end
 
         let(:post_state) do
@@ -271,7 +271,7 @@ describe TerminalPaint::Draw::FloodFill do
            '   *  ',
            '   *  ',
            '   *  ',
-           '   *  '].join($INPUT_RECORD_SEPARATOR)
+           '   *  '].join($/)
         end
 
         specify do
@@ -292,7 +292,7 @@ describe TerminalPaint::Draw::FloodFill do
            '  *X* ',
            '  *X* ',
            '  *X* ',
-           '  *X* '].join($INPUT_RECORD_SEPARATOR)
+           '  *X* '].join($/)
         end
 
         let(:post_state) do
@@ -301,7 +301,7 @@ describe TerminalPaint::Draw::FloodFill do
            '  *** ',
            '  *** ',
            '  *** ',
-           '  *** '].join($INPUT_RECORD_SEPARATOR)
+           '  *** '].join($/)
         end
 
         specify do
@@ -322,7 +322,7 @@ describe TerminalPaint::Draw::FloodFill do
            '  -X- ',
            '  -X- ',
            '  -X- ',
-           '  -X- '].join($INPUT_RECORD_SEPARATOR)
+           '  -X- '].join($/)
         end
 
         let(:post_state) do
@@ -331,7 +331,7 @@ describe TerminalPaint::Draw::FloodFill do
            '  -*- ',
            '  -*- ',
            '  -*- ',
-           '  -*- '].join($INPUT_RECORD_SEPARATOR)
+           '  -*- '].join($/)
         end
 
         specify do
@@ -352,7 +352,7 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            '---X--',
            ' --X- ',
-           ' --X- '].join($INPUT_RECORD_SEPARATOR)
+           ' --X- '].join($/)
         end
 
         let(:post_state) do
@@ -361,7 +361,7 @@ describe TerminalPaint::Draw::FloodFill do
            '******',
            '---*--',
            ' --*- ',
-           ' --*- '].join($INPUT_RECORD_SEPARATOR)
+           ' --*- '].join($/)
         end
 
         specify do

@@ -38,7 +38,7 @@ describe 'Non interactive app' do
 
   context 'invalid input' do
     specify do
-      stdout, stderr = simulate_input($INPUT_RECORD_SEPARATOR)
+      stdout, stderr = simulate_input($/)
       expect(stdout).to(eq('> '))
       expect(stderr).to(include(TerminalPaint::APP_USAGE))
 

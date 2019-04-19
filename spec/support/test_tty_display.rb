@@ -33,7 +33,7 @@ module Test
     def get_captured_output
       @old_buffer.map do |line|
         line.map { |char| char || ' ' }.join('')
-      end.join($INPUT_RECORD_SEPARATOR)
+      end.join($/)
     end
 
     def set_test_display_dimensions(width, height)

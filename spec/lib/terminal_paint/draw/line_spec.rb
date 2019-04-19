@@ -87,7 +87,7 @@ describe TerminalPaint::Draw::Line do
           ['    ',
            ' x  ',
            '    ',
-           '    '].join($INPUT_RECORD_SEPARATOR)
+           '    '].join($/)
         end
 
         specify do
@@ -101,7 +101,7 @@ describe TerminalPaint::Draw::Line do
           ['    ',
            ' *  ',
            '    ',
-           '    '].join($INPUT_RECORD_SEPARATOR)
+           '    '].join($/)
         end
 
         specify do
@@ -115,7 +115,7 @@ describe TerminalPaint::Draw::Line do
           ['    ',
            ' xxx',
            '    ',
-           '    '].join($INPUT_RECORD_SEPARATOR)
+           '    '].join($/)
         end
 
         specify do
@@ -129,7 +129,7 @@ describe TerminalPaint::Draw::Line do
           ['    ',
            ' xxx',
            '    ',
-           '    '].join($INPUT_RECORD_SEPARATOR)
+           '    '].join($/)
         end
 
         specify do
@@ -143,7 +143,7 @@ describe TerminalPaint::Draw::Line do
           ['    ',
            ' xxx',
            '    ',
-           '    '].join($INPUT_RECORD_SEPARATOR)
+           '    '].join($/)
         end
 
         specify do
@@ -157,7 +157,7 @@ describe TerminalPaint::Draw::Line do
           ['    ',
            ' x  ',
            ' x  ',
-           ' x  '].join($INPUT_RECORD_SEPARATOR)
+           ' x  '].join($/)
         end
 
         specify do
@@ -171,7 +171,7 @@ describe TerminalPaint::Draw::Line do
           ['    ',
            ' x  ',
            ' x  ',
-           ' x  '].join($INPUT_RECORD_SEPARATOR)
+           ' x  '].join($/)
         end
 
         specify do
@@ -185,7 +185,7 @@ describe TerminalPaint::Draw::Line do
           ['    ',
            ' x  ',
            ' x  ',
-           ' x  '].join($INPUT_RECORD_SEPARATOR)
+           ' x  '].join($/)
         end
 
         specify do
@@ -199,7 +199,7 @@ describe TerminalPaint::Draw::Line do
           ['*xx&',
            '*  &',
            '*  &',
-           '===&'].join($INPUT_RECORD_SEPARATOR)
+           '===&'].join($/)
         end
 
         specify do
@@ -229,7 +229,7 @@ describe TerminalPaint::Draw::Line do
           ['          ',
            'xxxxxxxxxx',
            '    x     ',
-           '    x     '].join($INPUT_RECORD_SEPARATOR)
+           '    x     '].join($/)
         end
 
         specify do

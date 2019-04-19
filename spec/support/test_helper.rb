@@ -7,7 +7,7 @@ module Test
         canvas.get_line(y).map do |value|
           value || ' '
         end.join('')
-      end.join($INPUT_RECORD_SEPARATOR)
+      end.join($/)
     end
   end
 end

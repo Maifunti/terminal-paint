@@ -11,7 +11,7 @@ module TerminalPaint
 
       # We're using both curses keypad codes and ascii ctrl characters
       BACKSPACE = [Curses::KEY_BACKSPACE, 8]
-      ENTER = [Curses::KEY_ENTER, 13, 10, $INPUT_RECORD_SEPARATOR]
+      ENTER = [Curses::KEY_ENTER, 13, 10, $/]
       ESCAPE = [27]
       LEFT = [Curses::KEY_LEFT]
       RIGHT = [Curses::KEY_RIGHT]
@@ -82,7 +82,7 @@ module TerminalPaint
       def refresh
         display_string = @display_buffer.map do |line|
           line.map { |char| char || ' ' }.join('')
-        end.join($INPUT_RECORD_SEPARATOR)
+        end.join($/)
         @main_window.setpos(0, 0)
         @main_window.addstr(display_string)
         @main_window.refresh

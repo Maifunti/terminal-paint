@@ -36,7 +36,7 @@ module TerminalPaint
             # clamp text to be within the width of this view
             text.slice(0, (right - left - (INTERNAL_PADDING * 2)))
           end
-          prompt_text = history_text.append(PROMPT).join($INPUT_RECORD_SEPARATOR)
+          prompt_text = history_text.append(PROMPT).join($/)
         else
           # special text when last command was an error
           prompt_text = APP_USAGE + PROMPT

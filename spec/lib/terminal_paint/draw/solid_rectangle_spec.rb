@@ -68,7 +68,7 @@ describe TerminalPaint::Draw::SolidRectangle do
           ['    ',
            ' x  ',
            '    ',
-           '    '].join($INPUT_RECORD_SEPARATOR)
+           '    '].join($/)
         end
 
         specify do
@@ -82,7 +82,7 @@ describe TerminalPaint::Draw::SolidRectangle do
           ['    ',
            ' *  ',
            '    ',
-           '    '].join($INPUT_RECORD_SEPARATOR)
+           '    '].join($/)
         end
 
         specify do
@@ -96,7 +96,7 @@ describe TerminalPaint::Draw::SolidRectangle do
           ['    ',
            ' xxx',
            '    ',
-           '    '].join($INPUT_RECORD_SEPARATOR)
+           '    '].join($/)
         end
 
         specify do
@@ -110,7 +110,7 @@ describe TerminalPaint::Draw::SolidRectangle do
           ['    ',
            ' x  ',
            ' x  ',
-           '    '].join($INPUT_RECORD_SEPARATOR)
+           '    '].join($/)
         end
 
         specify do
@@ -124,7 +124,7 @@ describe TerminalPaint::Draw::SolidRectangle do
           ['    ',
            ' xx ',
            ' xx ',
-           ' xx '].join($INPUT_RECORD_SEPARATOR)
+           ' xx '].join($/)
         end
 
         specify do
@@ -138,7 +138,7 @@ describe TerminalPaint::Draw::SolidRectangle do
           [' xx ',
            ' xx ',
            ' xx ',
-           '    '].join($INPUT_RECORD_SEPARATOR)
+           '    '].join($/)
         end
 
         specify do
@@ -152,7 +152,7 @@ describe TerminalPaint::Draw::SolidRectangle do
           ['xxxx',
            'xxxx',
            'xxxx',
-           'xxxx'].join($INPUT_RECORD_SEPARATOR)
+           'xxxx'].join($/)
         end
 
         specify do
@@ -179,7 +179,7 @@ describe TerminalPaint::Draw::SolidRectangle do
           ['xxxxxxxxxx',
            'xxxxxxxxxx',
            'xxxxxxxxxx',
-           'xxxxxxxxxx'].join($INPUT_RECORD_SEPARATOR)
+           'xxxxxxxxxx'].join($/)
         end
 
         specify do
@@ -193,7 +193,7 @@ describe TerminalPaint::Draw::SolidRectangle do
           ['xxxx',
            'xyyy',
            'xyzz',
-           'xyzz'].join($INPUT_RECORD_SEPARATOR)
+           'xyzz'].join($/)
         end
 
         specify do
@@ -212,7 +212,7 @@ describe TerminalPaint::Draw::SolidRectangle do
            '1222222221',
            '1233333321',
            '1222222221',
-           '1111111111'].join($INPUT_RECORD_SEPARATOR)
+           '1111111111'].join($/)
         end
 
         specify do

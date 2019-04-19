@@ -76,7 +76,7 @@ describe TerminalPaint::Draw::Rectangle do
           ['    ',
            ' x  ',
            '    ',
-           '    '].join($INPUT_RECORD_SEPARATOR)
+           '    '].join($/)
         end
 
         specify do
@@ -90,7 +90,7 @@ describe TerminalPaint::Draw::Rectangle do
           ['    ',
            ' *  ',
            '    ',
-           '    '].join($INPUT_RECORD_SEPARATOR)
+           '    '].join($/)
         end
 
         specify do
@@ -104,7 +104,7 @@ describe TerminalPaint::Draw::Rectangle do
           ['    ',
            ' xxx',
            '    ',
-           '    '].join($INPUT_RECORD_SEPARATOR)
+           '    '].join($/)
         end
 
         specify do
@@ -118,7 +118,7 @@ describe TerminalPaint::Draw::Rectangle do
           ['    ',
            ' x  ',
            ' x  ',
-           ' x  '].join($INPUT_RECORD_SEPARATOR)
+           ' x  '].join($/)
         end
 
         specify do
@@ -132,7 +132,7 @@ describe TerminalPaint::Draw::Rectangle do
           ['xxxx',
            'x   ',
            'x   ',
-           'x   '].join($INPUT_RECORD_SEPARATOR)
+           'x   '].join($/)
         end
 
         specify do
@@ -146,7 +146,7 @@ describe TerminalPaint::Draw::Rectangle do
           ['xxxx',
            'xyyy',
            'xyzz',
-           'xyz '].join($INPUT_RECORD_SEPARATOR)
+           'xyz '].join($/)
         end
 
         specify do
@@ -175,7 +175,7 @@ describe TerminalPaint::Draw::Rectangle do
           ['xxxxxxxxxx',
            'x        x',
            'x        x',
-           'xxxxxxxxxx'].join($INPUT_RECORD_SEPARATOR)
+           'xxxxxxxxxx'].join($/)
         end
 
         specify do

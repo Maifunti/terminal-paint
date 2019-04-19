@@ -6,7 +6,7 @@ module TerminalPaint
   module Display
     class BasicDisplayAdapter
       def initialize(input = $stdin, output = $stdout, error = $stderr)
-        @reader = TTY::Reader.new(input: input, output: output)
+        @reader = TTY::Reader.new(input: input, output: output, interrupt: :exit)
         @output = output
         @error = error
       end

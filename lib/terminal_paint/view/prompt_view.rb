@@ -32,7 +32,7 @@ module TerminalPaint
 
         if @history.empty? || @history.last.success
           history_text = @history.last(DISPLAYED_HISTORY_COUNT).map do |result|
-            text = (' ' * PROMPT.length) + result.formatted_result
+            text = (' ' * PROMPT.length) + result.formatted_command
             # clamp text to be within the width of this view
             text.slice(0, (right - left - (INTERNAL_PADDING * 2)))
           end

@@ -31,11 +31,13 @@ module TerminalPaint
     def app_loop
       user_input = @display.get_user_input(PROMPT)
       # display will return false when stdin has an EOF error
-      return false if user_input.empty?
+      return false if user_input&.empty?
 
       @display.refresh
       result = @controller.process_string(user_input)
-      if result.success
+      if result.exiting?
+        return false
+      elsif result.success
         if @canvas
           (0...@canvas.height).each do |y|
             @display.append_output(@canvas.get_line(y).join(''))
@@ -45,7 +47,7 @@ module TerminalPaint
         msg = if result.command.chomp.empty?
                 "#{APP_USAGE}\n"
               else
-                "\n#{result.formatted_result}\n\n#{APP_USAGE}\n"
+                "\n#{result.formatted_error}\n\n#{APP_USAGE}\n"
               end
         @display.append_error(msg)
       end

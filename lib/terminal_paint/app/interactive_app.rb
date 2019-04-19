@@ -38,6 +38,7 @@ module TerminalPaint
     def process_string(user_input)
       result = @controller.process_string(user_input)
       @prompt_view.add_history(result)
+      @exiting = result.exiting?
     end
 
     # @override DisplayInterface
@@ -54,7 +55,7 @@ module TerminalPaint
     def run
       loop do
         render_views
-        break unless @display.process_input_stream
+        break if @exiting || !@display.process_input_stream
       end
     rescue Interrupt
       # no op. App will close

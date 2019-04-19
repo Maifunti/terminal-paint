@@ -10,10 +10,6 @@ module Test
     end
 
     def initialize(width, height, stdin, stdout)
-      # Force tty-reader to read from configured input io. \
-      # TTY::Reader library has a bug in windows environment where it would always defer to windows api libraries for
-      # retrieving user input instead of the provided input IO. This setting forces it to use the provided input io
-      ENV['TTY_TEST'] = 'true'
       set_test_display_dimensions(width, height)
       super(stdin, stdout)
     end

@@ -5,8 +5,9 @@ module TerminalPaint
     class Result
       attr_reader :command, :success
 
-      def initialize(command)
-        @command = command
+      def initialize(command, arguments)
+        @command = command || ''
+        @arguments = arguments || ''
       end
 
       def for_failure(message)
@@ -20,8 +21,16 @@ module TerminalPaint
         self
       end
 
-      def formatted_result
-        @success ? @command : "#{@command} #{@err_io}"
+      def formatted_command
+        [@command, @arguments].join(' ').strip
+      end
+
+      def formatted_error
+        "#{formatted_command} #{@err_io}"
+      end
+
+      def exiting?
+        @command == 'Q'
       end
     end
 
@@ -35,10 +44,9 @@ module TerminalPaint
     # @return [Result]
     def process_string(user_input)
       command, *arguments = user_input.to_s.strip.split(' ')
-      return Result.new('').for_failure("Bad Input: '#{user_input}'") unless command
+      return Result.new(nil, nil).for_failure("Bad Input: '#{user_input}'") unless command
       command = command.upcase
-      pretty_input = [command, arguments].join(' ')
-      result = Result.new(pretty_input)
+      result = Result.new(command, arguments)
 
       case command
       when 'C'
@@ -88,7 +96,7 @@ module TerminalPaint
 
         Draw::FloodFill.print(@canvas, x, y, replacement_color)
       when 'Q'
-        exit
+        # App will exit
       else
         return result.for_failure('Unknown command')
       end

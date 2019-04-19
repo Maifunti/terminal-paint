@@ -1,0 +1,1 @@
+../../integration/mixed_2/command.txt

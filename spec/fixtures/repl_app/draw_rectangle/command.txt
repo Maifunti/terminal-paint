@@ -1,0 +1,1 @@
+../../integration/draw_rectangle/command.txt

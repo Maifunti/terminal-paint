@@ -1,0 +1,9 @@
+inherit_from:
+  - .rubocop-http---shopify-github-io-ruby-style-guide-rubocop-yml
+
+AllCops:
+  TargetRubyVersion: 2.5
+
+# This doesn't take into account retrying from an exception
+Lint/HandleExceptions:
+  Enabled: false

@@ -19,7 +19,7 @@ describe 'Interactive app using TTYDisplayAdapter' do
   let(:display_height) { 100 }
   let(:input_io) { StringIO.new }
   let(:out_io) { StringIO.new }
-  let(:err_io) { StringIO.new }
+  let(:err_message) { StringIO.new }
   let(:test_display) { Test::TTYDisplayAdapter.build(display_width, display_height, input_io, out_io) }
   let(:test_app) { TerminalPaint::InteractiveApp.new(test_display) }
 

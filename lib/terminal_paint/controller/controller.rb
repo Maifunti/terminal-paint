@@ -12,7 +12,7 @@ module TerminalPaint
 
       def for_failure(message)
         @success = false
-        @err_io = message
+        @err_message = message
         self
       end
 
@@ -21,12 +21,13 @@ module TerminalPaint
         self
       end
 
-      def formatted_command
-        [@command, @arguments].join(' ').strip
-      end
-
-      def formatted_error
-        "#{formatted_command} #{@err_io}"
+      def formatted_message
+        formmatted_input = [@command, @arguments].join(' ').strip
+        if @success
+          formmatted_input
+        else
+          "'#{formmatted_input}' #{@err_message}"
+        end
       end
 
       def exiting?
@@ -44,7 +45,7 @@ module TerminalPaint
     # @return [Result]
     def process_string(user_input)
       command, *arguments = user_input.to_s.strip.split(' ')
-      return Result.new(nil, nil).for_failure("Bad Input: '#{user_input}'") unless command
+      return Result.new(nil, nil).for_failure("Bad Input") unless command
       command = command.upcase
       result = Result.new(command, arguments)
 

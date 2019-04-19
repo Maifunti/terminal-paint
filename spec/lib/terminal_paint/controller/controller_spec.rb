@@ -17,7 +17,7 @@ describe TerminalPaint::Controller do
       let(:command){ }
       specify do
         expect(subject.success).to be false
-        expect(subject.formatted_error).to eq ' Bad Input: \'\''
+        expect(subject.formatted_message).to eq '\'\' Bad Input'
       end
     end
 
@@ -25,7 +25,7 @@ describe TerminalPaint::Controller do
       let(:command){ 'X' }
       specify do
         expect(subject.success).to be false
-        expect(subject.formatted_error).to eq 'X  Unknown command'
+        expect(subject.formatted_message).to eq '\'X\' Unknown command'
       end
     end
 
@@ -34,7 +34,7 @@ describe TerminalPaint::Controller do
         let(:command){ 'C 10' }
         specify do
           expect(subject.success).to be false
-          expect(subject.formatted_error).to eq 'C 10 Illegal Arguments'
+          expect(subject.formatted_message).to eq '\'C 10\' Illegal Arguments'
         end
       end
 
@@ -42,7 +42,7 @@ describe TerminalPaint::Controller do
         let(:command){ 'C 10 F' }
         specify do
           expect(subject.success).to be false
-          expect(subject.formatted_error).to eq 'C 10 F Size must be an integer'
+          expect(subject.formatted_message).to eq '\'C 10 F\' Size must be an integer'
         end
       end
 
@@ -54,7 +54,7 @@ describe TerminalPaint::Controller do
             expect(canvas.height).to eq 100
           end
           expect(subject.success).to be true
-          expect(subject.formatted_error).to eq 'C 50 100'
+          expect(subject.formatted_message).to eq 'C 50 100'
         end
       end
     end
@@ -64,7 +64,7 @@ describe TerminalPaint::Controller do
         let(:command){ 'L 10' }
         specify do
           expect(subject.success).to be false
-          expect(subject.formatted_error).to eq 'L 10 First create a new canvas'
+          expect(subject.formatted_message).to eq '\'L 10\' First create a new canvas'
         end
       end
 
@@ -75,7 +75,7 @@ describe TerminalPaint::Controller do
           let(:command){ 'L 10' }
           specify do
             expect(subject.success).to be false
-            expect(subject.formatted_error).to eq 'L 10 Illegal Arguments'
+            expect(subject.formatted_message).to eq '\'L 10\' Illegal Arguments'
           end
         end
 
@@ -83,7 +83,7 @@ describe TerminalPaint::Controller do
           let(:command){ 'L 10 x 10 20' }
           specify do
             expect(subject.success).to be false
-            expect(subject.formatted_error).to eq 'L 10 x 10 20 Illegal Arguments. Size must be an integer'
+            expect(subject.formatted_message).to eq '\'L 10 x 10 20\' Illegal Arguments. Size must be an integer'
           end
         end
 
@@ -91,7 +91,7 @@ describe TerminalPaint::Controller do
           let(:command){ 'L 10 11 12 13' }
           specify do
             expect(subject.success).to be false
-            expect(subject.formatted_error).to eq "L 10 11 12 13 Illegal Arguments. Arguments "\
+            expect(subject.formatted_message).to eq "'L 10 11 12 13' Illegal Arguments. Arguments "\
 "'[\"10\", \"11\", \"12\", \"13\"]' do not specify a straight line"
           end
         end
@@ -102,7 +102,7 @@ describe TerminalPaint::Controller do
           specify do
             expect(TerminalPaint::Draw::Line).to receive(:print)
               .with(controller.canvas, 0, 50, 50, 50).and_call_original
-            expect(subject.formatted_error).to eq 'L 0 50 50 50'
+            expect(subject.formatted_message).to eq 'L 0 50 50 50'
             expect(subject.success).to be true
           end
         end
@@ -114,7 +114,7 @@ describe TerminalPaint::Controller do
         let(:command){ 'R 10' }
         specify do
           expect(subject.success).to be false
-          expect(subject.formatted_error).to eq 'R 10 First create a new canvas'
+          expect(subject.formatted_message).to eq '\'R 10\' First create a new canvas'
         end
       end
 
@@ -125,7 +125,7 @@ describe TerminalPaint::Controller do
           let(:command){ 'R 10' }
           specify do
             expect(subject.success).to be false
-            expect(subject.formatted_error).to eq 'R 10 Illegal Arguments'
+            expect(subject.formatted_message).to eq '\'R 10\' Illegal Arguments'
           end
         end
 
@@ -133,7 +133,7 @@ describe TerminalPaint::Controller do
           let(:command){ 'R 10 10 10 X' }
           specify do
             expect(subject.success).to be false
-            expect(subject.formatted_error).to eq 'R 10 10 10 X Illegal Arguments. Size must be an integer'
+            expect(subject.formatted_message).to eq '\'R 10 10 10 X\' Illegal Arguments. Size must be an integer'
           end
         end
 
@@ -143,7 +143,7 @@ describe TerminalPaint::Controller do
           specify do
             expect(TerminalPaint::Draw::Rectangle).to receive(:print)
               .with(controller.canvas, 0, 50, 50, 50).and_call_original
-            expect(subject.formatted_error).to eq 'R 0 50 50 50'
+            expect(subject.formatted_message).to eq 'R 0 50 50 50'
             expect(subject.success).to be true
           end
         end
@@ -155,7 +155,7 @@ describe TerminalPaint::Controller do
         let(:command){ 'B 10' }
         specify do
           expect(subject.success).to be false
-          expect(subject.formatted_error).to eq 'B 10 First create a new canvas'
+          expect(subject.formatted_message).to eq '\'B 10\' First create a new canvas'
         end
       end
 
@@ -166,7 +166,7 @@ describe TerminalPaint::Controller do
           let(:command){ 'B 10' }
           specify do
             expect(subject.success).to be false
-            expect(subject.formatted_error).to eq 'B 10 Illegal Arguments'
+            expect(subject.formatted_message).to eq '\'B 10\' Illegal Arguments'
           end
         end
 
@@ -174,7 +174,7 @@ describe TerminalPaint::Controller do
           let(:command){ 'B A D U' }
           specify do
             expect(subject.success).to be false
-            expect(subject.formatted_error).to eq 'B A D U Illegal Arguments. Size must be an integer'
+            expect(subject.formatted_message).to eq '\'B A D U\' Illegal Arguments. Size must be an integer'
           end
         end
 
@@ -184,7 +184,7 @@ describe TerminalPaint::Controller do
           specify do
             expect(TerminalPaint::Draw::FloodFill).to receive(:print)
               .with(controller.canvas, 0, 50, '*').and_call_original
-            expect(subject.formatted_error).to eq 'B 0 50 *'
+            expect(subject.formatted_message).to eq 'B 0 50 *'
             expect(subject.success).to be true
           end
         end

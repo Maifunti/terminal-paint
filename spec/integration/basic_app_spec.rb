@@ -49,7 +49,7 @@ describe 'Non interactive app' do
 
       stdout, stderr = *simulate_input("C 0 0 \n")
       expect(stdout).to(eq('> '))
-      expect(stderr).to(include('C 0 0 Size must be > 0'))
+      expect(stderr).to(include('\'C 0 0\' Size must be > 0'))
       expect(stderr).to(include(TerminalPaint::APP_USAGE))
     end
   end

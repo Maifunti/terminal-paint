@@ -3,8 +3,8 @@
 Encoding.default_external = Encoding::UTF_8
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "..", "lib"))
 
-# require 'simplecov'
-# SimpleCov.start
+require 'simplecov'
+SimpleCov.start
 
 require 'terminal_paint'
 require 'strings'

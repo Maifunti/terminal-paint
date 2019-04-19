@@ -56,7 +56,7 @@ module TerminalPaint
         return result.for_failure('Size must be > 0') if width <= 0 || height <= 0
 
         @canvas = Canvas.new(width, height)
-        @call_back_listener.new_canvas @canvas
+        @call_back_listener.new_canvas(@canvas)
       when 'L'
         return result.for_failure('First create a new canvas') unless @canvas
         return result.for_failure('Illegal Arguments') unless arguments.size == 4

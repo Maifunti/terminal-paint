@@ -8,7 +8,7 @@ describe TerminalPaint::Draw::Border do
   describe '#print' do
     let(:width) { 4 }
     let(:height) { 4 }
-    let(:canvas) { TerminalPaint::Canvas.new width, height }
+    let(:canvas) { TerminalPaint::Canvas.new(width, height) }
 
     context 'invalid parameters' do
       let(:x1) { 0 }
@@ -18,28 +18,28 @@ describe TerminalPaint::Draw::Border do
       let(:style) { 'X' }
 
       subject do
-        TerminalPaint::Draw::Border.print canvas, x1, y1, x2, y2, style: style
+        TerminalPaint::Draw::Border.print(canvas, x1, y1, x2, y2, style: style)
         print_canvas canvas
       end
 
       context 'null canvas parameter' do
         let(:canvas) { nil }
         it 'should raise argument error' do
-          expect { subject }.to raise_error ArgumentError, 'Canvas must be non null'
+          expect { subject }.to(raise_error(ArgumentError, 'Canvas must be non null'))
         end
       end
 
       context 'null style parameter' do
         let(:style) { nil }
         it 'asserts valid char' do
-          expect { subject }.to raise_error ArgumentError, 'style must be non null'
+          expect { subject }.to(raise_error(ArgumentError, 'style must be non null'))
         end
       end
 
       context 'invalid style parameter' do
         let(:style) { :foo }
         it 'asserts valid char' do
-          expect { subject }.to raise_error ArgumentError, 'Invalid Style'
+          expect { subject }.to(raise_error(ArgumentError, 'Invalid Style'))
         end
       end
 
@@ -49,8 +49,8 @@ describe TerminalPaint::Draw::Border do
         let(:y1) { 3.0 }
         let(:y2) { 3.0 }
         specify do
-          expect(TerminalPaint::Draw::Border).to receive(:assert_integer).with(x1, y1, x2, y2).and_call_original
-          expect { subject }.to raise_error ArgumentError, 'Coordinate must be an integer'
+          expect(TerminalPaint::Draw::Border).to(receive(:assert_integer).with(x1, y1, x2, y2).and_call_original)
+          expect { subject }.to(raise_error(ArgumentError, 'Coordinate must be an integer'))
         end
       end
 
@@ -60,8 +60,8 @@ describe TerminalPaint::Draw::Border do
         let(:y1) { -3 }
         let(:y2) { -3 }
         specify do
-          expect(TerminalPaint::Draw::Border).to receive(:assert_positive).with(x1, y1, x2, y2).and_call_original
-          expect { subject }.to raise_error ArgumentError, 'Integer must be positive'
+          expect(TerminalPaint::Draw::Border).to(receive(:assert_positive).with(x1, y1, x2, y2).and_call_original)
+          expect { subject }.to(raise_error(ArgumentError, 'Integer must be positive'))
         end
       end
     end
@@ -74,12 +74,12 @@ describe TerminalPaint::Draw::Border do
           ['    ',
            ' +  ',
            '    ',
-           '    '].join $/
+           '    '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Border.print canvas, 1, 1, 1, 1
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Border.print(canvas, 1, 1, 1, 1)
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -88,12 +88,12 @@ describe TerminalPaint::Draw::Border do
           ['    ',
            ' ╝  ',
            '    ',
-           '    '].join $/
+           '    '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Border.print canvas, 1, 1, 1, 1, style: :thick
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Border.print(canvas, 1, 1, 1, 1, style: :thick)
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -102,12 +102,12 @@ describe TerminalPaint::Draw::Border do
           ['+--+',
            '    ',
            '    ',
-           '    '].join $/
+           '    '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Border.print canvas, 0, 0, 3, 0
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Border.print(canvas, 0, 0, 3, 0)
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -116,12 +116,12 @@ describe TerminalPaint::Draw::Border do
           [' +  ',
            ' |  ',
            ' |  ',
-           ' +  '].join $/
+           ' +  '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Border.print canvas, 1, 0, 1, 3
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Border.print(canvas, 1, 0, 1, 3)
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -130,12 +130,12 @@ describe TerminalPaint::Draw::Border do
           ['+--+',
            '+--+',
            '    ',
-           '    '].join $/
+           '    '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Border.print canvas, 0, 0, 3, 1
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Border.print(canvas, 0, 0, 3, 1)
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -144,12 +144,12 @@ describe TerminalPaint::Draw::Border do
           ['    ',
            '+--+',
            '|  |',
-           '+--+'].join $/
+           '+--+'].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Border.print canvas, 0, 1, 3, 3
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Border.print(canvas, 0, 1, 3, 3)
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -161,15 +161,14 @@ describe TerminalPaint::Draw::Border do
            '|        |',
            '|        |',
            '|        |',
-           '+--------+'].join $/
+           '+--------+'].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Border.print canvas, 0, 0, 9, 4
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Border.print(canvas, 0, 0, 9, 4)
+          expect(subject).to(eql(expectation))
         end
       end
-
 
       context 'multiple invocations can overlap' do
         let(:width) { 10 }
@@ -180,14 +179,14 @@ describe TerminalPaint::Draw::Border do
            '|║┌────┐║|',
            '|║└────┘║|',
            '|╚══════╝|',
-           '+--------+'].join $/
+           '+--------+'].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Border.print canvas, 0, 0, 9, 5
-          TerminalPaint::Draw::Border.print canvas, 1, 1, 8, 4, style: :thick
-          TerminalPaint::Draw::Border.print canvas, 2, 2, 7, 3, style: :light
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Border.print(canvas, 0, 0, 9, 5)
+          TerminalPaint::Draw::Border.print(canvas, 1, 1, 8, 4, style: :thick)
+          TerminalPaint::Draw::Border.print(canvas, 2, 2, 7, 3, style: :light)
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -197,8 +196,8 @@ describe TerminalPaint::Draw::Border do
         let(:expectation) { '+' }
 
         specify do
-          TerminalPaint::Draw::Border.print canvas, 0, 0, 0, 0
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Border.print(canvas, 0, 0, 0, 0)
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -209,12 +208,12 @@ describe TerminalPaint::Draw::Border do
           ['+--------+',
            '|        |',
            '|        |',
-           '+--------+'].join $/
+           '+--------+'].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Border.print canvas, 0, 0, 9, 3
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Border.print(canvas, 0, 0, 9, 3)
+          expect(subject).to(eql(expectation))
         end
       end
     end

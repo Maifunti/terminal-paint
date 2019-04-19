@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TerminalPaint::Draw
   def assert_positive(*args)
     raise(ArgumentError, 'Integer must be positive') if args.nil? || args.any?(&:negative?)

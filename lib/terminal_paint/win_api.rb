@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'fiddle/types'
 require 'fiddle/import'
 
@@ -28,7 +30,7 @@ module TerminalPaint
     end
 
     def stdout_handle
-      Kernel32.GetStdHandle Kernel32::STD_OUTPUT_HANDLE
+      Kernel32.GetStdHandle(Kernel32::STD_OUTPUT_HANDLE)
     end
 
     module Kernel32

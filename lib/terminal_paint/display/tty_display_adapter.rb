@@ -12,7 +12,7 @@ module TerminalPaint
       require_relative 'editor.rb'
       require_relative '../os.rb'
 
-      CSI = "\e[".freeze
+      CSI = "\e["
       ENABLE_ALTERNATE_BUFFER = CSI + "?1049h"
       DISABLE_ALTERNATE_BUFFER = CSI + "?1049l"
       DISABLE_LINE_WRAP = CSI + "7l"
@@ -28,15 +28,15 @@ module TerminalPaint
       UP = ["\e[A", "\u00E0H"]
 
       # Callers must call #close when finished
-      def initialize(input=$stdin, output=$stdout)
+      def initialize(input = $stdin, output = $stdout)
         @input = input
         @output = output
 
-        @reader = TTY::Reader.new input: @input, output: @output, interrupt: :exit, track_history: false
+        @reader = TTY::Reader.new(input: @input, output: @output, interrupt: :exit, track_history: false)
 
         initialize_screen
 
-        @editor = Editor.new self
+        @editor = Editor.new(self)
 
         # try to trap terminal resizes. Only works on systems that support SIGWINCH signal
         begin
@@ -53,8 +53,8 @@ module TerminalPaint
           @win_api = TerminalPaint::WinApi.new
           @win_api.enable_virtual_terminal_processing
         end
-        @output.print ENABLE_ALTERNATE_BUFFER
-        @output.print DISABLE_LINE_WRAP
+        @output.print(ENABLE_ALTERNATE_BUFFER)
+        @output.print(DISABLE_LINE_WRAP)
       end
 
       def initialize_screen
@@ -69,9 +69,7 @@ module TerminalPaint
         @width - 1
       end
 
-      def height
-        @height
-      end
+      attr_reader :height
 
       # @param [DisplayInterface]
       def callback_listener=(interface)
@@ -88,7 +86,7 @@ module TerminalPaint
           # clamp string to be within window dimensions to prevent overflow
           clamped_value = line.slice(0, [line.size, width - x].min).to_s
           clamped_value.each_char.with_index do |char, index|
-            fail if index + x >= width
+            raise if index + x >= width
             line = @new_buffer[y]
             line[(x + index)] = char
           end
@@ -99,15 +97,15 @@ module TerminalPaint
       # @param [Integer] y row
       # set the position of the cursor
       def set_pos(x, y)
-        @output.print TTY::Cursor.move_to(x, y)
+        @output.print(TTY::Cursor.move_to(x, y))
       end
 
       def set_prompt_area(x, y, width)
-        @editor.set_prompt_area x, y, width
+        @editor.set_prompt_area(x, y, width)
       end
 
       def erase
-        @new_buffer.each { |line_array| line_array.clear }
+        @new_buffer.each(&:clear)
       end
 
       # reduces stuttering while typing by only refreshing the changed cells on the display
@@ -120,52 +118,51 @@ module TerminalPaint
         changes = 0
 
         @new_buffer.each_with_index do |line, row_index|
-          @output.print TTY::Cursor.move_to(0, row_index)
+          @output.print(TTY::Cursor.move_to(0, row_index))
           cursor_index = 0
           line.each_with_index do |char, col_index|
-            if char != @old_buffer[row_index][col_index]
-              changes += 1
-              if changes > 5
-                return false
-              end
-              cursor_del = col_index - cursor_index
-              if cursor_del > 0
-                @output.print TTY::Cursor.move(cursor_del, 0)
-              end
-              @output.print(char || ' ') # treat nil as empty space
-              cursor_index = col_index + 1
+            next if char == @old_buffer[row_index][col_index]
+            changes += 1
+            if changes > 5
+              return false
             end
+            cursor_del = col_index - cursor_index
+            if cursor_del > 0
+              @output.print(TTY::Cursor.move(cursor_del, 0))
+            end
+            @output.print(char || ' ') # treat nil as empty space
+            cursor_index = col_index + 1
           end
         end
         true
       end
 
       def refresh
-        @output.print TTY::Cursor.save
+        @output.print(TTY::Cursor.save)
 
         unless efficient_refresh
-          @output.print TTY::Cursor.move_to(0, 0)
-          @output.print TTY::Cursor.clear_screen
+          @output.print(TTY::Cursor.move_to(0, 0))
+          @output.print(TTY::Cursor.clear_screen)
           display_string = @new_buffer.map do |line|
             line.map { |char| char || ' ' }.join('')
-          end.join("\n")
+          end.join($INPUT_RECORD_SEPARATOR)
 
-          @output.print display_string
+          @output.print(display_string)
         end
         @output.flush
-        @output.print TTY::Cursor.restore
+        @output.print(TTY::Cursor.restore)
 
         # clear old buffer and re-use as the new display buffer
         recycled_buffer = @old_buffer
-        recycled_buffer.each { |line_array| line_array.clear }
+        recycled_buffer.each(&:clear)
         @old_buffer = @new_buffer
         @new_buffer = recycled_buffer
       end
 
       def close
         trap('SIGWINCH', @original_handler) if @original_handler
-        @output.print DISABLE_ALTERNATE_BUFFER
-        @win_api.restore if @win_api
+        @output.print(DISABLE_ALTERNATE_BUFFER)
+        @win_api&.restore
       end
 
       def process_input_stream
@@ -183,7 +180,7 @@ module TerminalPaint
         when *ENTER
           unless @scroll_mode
             # next if @scroll_mode
-            @call_back_listener.process_string @editor.pop_input
+            @call_back_listener.process_string(@editor.pop_input)
           end
         when *BACKSPACE
           @editor.backspace unless @scroll_mode
@@ -196,14 +193,14 @@ module TerminalPaint
         when *UP
           move(:vertical, -1)
         when /^[ -~]$/ # matches all printable ascii characters
-          @editor.append char unless @scroll_mode
+          @editor.append(char) unless @scroll_mode
         when nil
           # nil is returned when input stream EOF has been reached
           return false
         else
           # noop
         end
-        return true
+        true
       end
 
       private
@@ -213,9 +210,9 @@ module TerminalPaint
         @call_back_listener.set_scroll_mode(@scroll_mode)
         # change cursor visibility
         if @scroll_mode
-          @output.print TTY::Cursor.hide
+          @output.print(TTY::Cursor.hide)
         else
-          @output.print TTY::Cursor.show
+          @output.print(TTY::Cursor.show)
         end
       end
 
@@ -227,7 +224,7 @@ module TerminalPaint
         else
           # internal scrolling of editor
           if orientation == :horizontal
-            @editor.move by
+            @editor.move(by)
           end
         end
       end

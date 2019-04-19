@@ -8,7 +8,7 @@ describe TerminalPaint::Draw::FloodFill do
   describe '#print' do
     let(:width) { 6 }
     let(:height) { 6 }
-    let(:canvas) { TerminalPaint::Canvas.new width, height }
+    let(:canvas) { TerminalPaint::Canvas.new(width, height) }
 
     context 'invalid parameters' do
       let(:x) { 0 }
@@ -16,22 +16,22 @@ describe TerminalPaint::Draw::FloodFill do
       let(:replacement_color) { 'X' }
 
       subject do
-        TerminalPaint::Draw::FloodFill.print canvas, x, y, replacement_color
+        TerminalPaint::Draw::FloodFill.print(canvas, x, y, replacement_color)
         print_canvas canvas
       end
 
       context 'null canvas parameter' do
         let(:canvas) { nil }
         it 'should raise argument error' do
-          expect { subject }.to raise_error ArgumentError, 'Canvas must be non null'
+          expect { subject }.to(raise_error(ArgumentError, 'Canvas must be non null'))
         end
       end
 
       context 'invalid char parameter' do
         let(:replacement_color) { 1 }
         it 'asserts valid char' do
-          expect(TerminalPaint::Draw::FloodFill).to receive(:assert_is_char).with(replacement_color).and_call_original
-          expect { subject }.to raise_error ArgumentError, 'invalid char'
+          expect(TerminalPaint::Draw::FloodFill).to(receive(:assert_is_char).with(replacement_color).and_call_original)
+          expect { subject }.to(raise_error(ArgumentError, 'invalid char'))
         end
       end
 
@@ -39,8 +39,8 @@ describe TerminalPaint::Draw::FloodFill do
         let(:x) { 1.0 }
         let(:y) { 3.0 }
         specify do
-          expect(TerminalPaint::Draw::FloodFill).to receive(:assert_integer).with(x, y).and_call_original
-          expect { subject }.to raise_error ArgumentError, 'Coordinate must be an integer'
+          expect(TerminalPaint::Draw::FloodFill).to(receive(:assert_integer).with(x, y).and_call_original)
+          expect { subject }.to(raise_error(ArgumentError, 'Coordinate must be an integer'))
         end
       end
 
@@ -48,8 +48,8 @@ describe TerminalPaint::Draw::FloodFill do
         let(:x) { -1 }
         let(:y) { -3 }
         specify do
-          expect(TerminalPaint::Draw::FloodFill).to receive(:assert_positive).with(x, y).and_call_original
-          expect { subject }.to raise_error ArgumentError, 'Integer must be positive'
+          expect(TerminalPaint::Draw::FloodFill).to(receive(:assert_positive).with(x, y).and_call_original)
+          expect { subject }.to(raise_error(ArgumentError, 'Integer must be positive'))
         end
       end
     end
@@ -58,7 +58,7 @@ describe TerminalPaint::Draw::FloodFill do
       before do
         pre_state.lines.each_with_index do |line, row_index|
           line.each_char.with_index do |char, col_index|
-            canvas.set_value col_index, row_index, char
+            canvas.set_value(col_index, row_index, char)
           end
         end
       end
@@ -72,7 +72,7 @@ describe TerminalPaint::Draw::FloodFill do
            '      ',
            '      ',
            '      ',
-           '      '].join $/
+           '      '].join($INPUT_RECORD_SEPARATOR)
         end
 
         let(:post_state) do
@@ -81,12 +81,12 @@ describe TerminalPaint::Draw::FloodFill do
            '******',
            '******',
            '******',
-           '******'].join $/
+           '******'].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::FloodFill.print canvas, 1, 1, '*'
-          expect(subject).to eql post_state
+          TerminalPaint::Draw::FloodFill.print(canvas, 1, 1, '*')
+          expect(subject).to(eql(post_state))
         end
       end
 
@@ -97,7 +97,7 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            'XXXXXX',
            'XXXXXX',
-           'XXXXXX'].join $/
+           'XXXXXX'].join($INPUT_RECORD_SEPARATOR)
         end
 
         let(:post_state) do
@@ -106,12 +106,12 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            'XXXXXX',
            'XXXXXX',
-           'XXXXXX'].join $/
+           'XXXXXX'].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::FloodFill.print canvas, 0, 0, '*'
-          expect(subject).to eql post_state
+          TerminalPaint::Draw::FloodFill.print(canvas, 0, 0, '*')
+          expect(subject).to(eql(post_state))
         end
       end
 
@@ -122,7 +122,7 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            'XXXXXX',
            'XXXXXX',
-           'XXXXXX'].join $/
+           'XXXXXX'].join($INPUT_RECORD_SEPARATOR)
         end
 
         let(:post_state) do
@@ -131,12 +131,12 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            'XXXXXX',
            'XXXXXX',
-           'XXXXXX'].join $/
+           'XXXXXX'].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::FloodFill.print canvas, 0, 0, '*'
-          expect(subject).to eql post_state
+          TerminalPaint::Draw::FloodFill.print(canvas, 0, 0, '*')
+          expect(subject).to(eql(post_state))
         end
       end
 
@@ -147,7 +147,7 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            'XXXXXX',
            'XXXXXX',
-           'XXXXXX'].join $/
+           'XXXXXX'].join($INPUT_RECORD_SEPARATOR)
         end
 
         let(:post_state) do
@@ -156,12 +156,12 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            'XXXXXX',
            'XXXXXX',
-           'XXXXXX'].join $/
+           'XXXXXX'].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::FloodFill.print canvas, 0, 0, '*'
-          expect(subject).to eql post_state
+          TerminalPaint::Draw::FloodFill.print(canvas, 0, 0, '*')
+          expect(subject).to(eql(post_state))
         end
       end
 
@@ -172,7 +172,7 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            'XXXXXX',
            'XXXX  ',
-           'XXX XX'].join $/
+           'XXX XX'].join($INPUT_RECORD_SEPARATOR)
         end
 
         let(:post_state) do
@@ -181,17 +181,17 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            'XXXXXX',
            'XXXX  ',
-           'XXX **'].join $/
+           'XXX **'].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::FloodFill.print canvas, 5, 5, '*'
-          expect(subject).to eql post_state
+          TerminalPaint::Draw::FloodFill.print(canvas, 5, 5, '*')
+          expect(subject).to(eql(post_state))
         end
 
         specify do
-          TerminalPaint::Draw::FloodFill.print canvas, 4, 5, '*'
-          expect(subject).to eql post_state
+          TerminalPaint::Draw::FloodFill.print(canvas, 4, 5, '*')
+          expect(subject).to(eql(post_state))
         end
       end
 
@@ -202,7 +202,7 @@ describe TerminalPaint::Draw::FloodFill do
            '  XXXX',
            'XXXXXX',
            'XXXXXX',
-           'XXXXXX'].join $/
+           'XXXXXX'].join($INPUT_RECORD_SEPARATOR)
         end
 
         let(:post_state) do
@@ -211,17 +211,17 @@ describe TerminalPaint::Draw::FloodFill do
            '  XXXX',
            'XXXXXX',
            'XXXXXX',
-           'XXXXXX'].join $/
+           'XXXXXX'].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::FloodFill.print canvas, 0, 0, '*'
-          expect(subject).to eql post_state
+          TerminalPaint::Draw::FloodFill.print(canvas, 0, 0, '*')
+          expect(subject).to(eql(post_state))
         end
 
         specify do
-          TerminalPaint::Draw::FloodFill.print canvas, 1, 1, '*'
-          expect(subject).to eql post_state
+          TerminalPaint::Draw::FloodFill.print(canvas, 1, 1, '*')
+          expect(subject).to(eql(post_state))
         end
       end
 
@@ -232,7 +232,7 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            'XXXX  ',
            'XXX XX',
-           'XXX XX'].join $/
+           'XXX XX'].join($INPUT_RECORD_SEPARATOR)
         end
 
         let(:post_state) do
@@ -241,17 +241,17 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            'XXXX  ',
            'XXX **',
-           'XXX **'].join $/
+           'XXX **'].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::FloodFill.print canvas, 5, 5, '*'
-          expect(subject).to eql post_state
+          TerminalPaint::Draw::FloodFill.print(canvas, 5, 5, '*')
+          expect(subject).to(eql(post_state))
         end
 
         specify do
-          TerminalPaint::Draw::FloodFill.print canvas, 4, 4, '*'
-          expect(subject).to eql post_state
+          TerminalPaint::Draw::FloodFill.print(canvas, 4, 4, '*')
+          expect(subject).to(eql(post_state))
         end
       end
 
@@ -262,7 +262,7 @@ describe TerminalPaint::Draw::FloodFill do
            '   X  ',
            '   X  ',
            '   X  ',
-           '   X  '].join $/
+           '   X  '].join($INPUT_RECORD_SEPARATOR)
         end
 
         let(:post_state) do
@@ -271,17 +271,17 @@ describe TerminalPaint::Draw::FloodFill do
            '   *  ',
            '   *  ',
            '   *  ',
-           '   *  '].join $/
+           '   *  '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::FloodFill.print canvas, 3, 0, '*'
-          expect(subject).to eql post_state
+          TerminalPaint::Draw::FloodFill.print(canvas, 3, 0, '*')
+          expect(subject).to(eql(post_state))
         end
 
         specify do
-          TerminalPaint::Draw::FloodFill.print canvas, 3, 5, '*'
-          expect(subject).to eql post_state
+          TerminalPaint::Draw::FloodFill.print(canvas, 3, 5, '*')
+          expect(subject).to(eql(post_state))
         end
       end
 
@@ -292,7 +292,7 @@ describe TerminalPaint::Draw::FloodFill do
            '  *X* ',
            '  *X* ',
            '  *X* ',
-           '  *X* '].join $/
+           '  *X* '].join($INPUT_RECORD_SEPARATOR)
         end
 
         let(:post_state) do
@@ -301,17 +301,17 @@ describe TerminalPaint::Draw::FloodFill do
            '  *** ',
            '  *** ',
            '  *** ',
-           '  *** '].join $/
+           '  *** '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::FloodFill.print canvas, 3, 0, '*'
-          expect(subject).to eql post_state
+          TerminalPaint::Draw::FloodFill.print(canvas, 3, 0, '*')
+          expect(subject).to(eql(post_state))
         end
 
         specify do
-          TerminalPaint::Draw::FloodFill.print canvas, 3, 5, '*'
-          expect(subject).to eql post_state
+          TerminalPaint::Draw::FloodFill.print(canvas, 3, 5, '*')
+          expect(subject).to(eql(post_state))
         end
       end
 
@@ -322,7 +322,7 @@ describe TerminalPaint::Draw::FloodFill do
            '  -X- ',
            '  -X- ',
            '  -X- ',
-           '  -X- '].join $/
+           '  -X- '].join($INPUT_RECORD_SEPARATOR)
         end
 
         let(:post_state) do
@@ -331,17 +331,17 @@ describe TerminalPaint::Draw::FloodFill do
            '  -*- ',
            '  -*- ',
            '  -*- ',
-           '  -*- '].join $/
+           '  -*- '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::FloodFill.print canvas, 3, 0, '*'
-          expect(subject).to eql post_state
+          TerminalPaint::Draw::FloodFill.print(canvas, 3, 0, '*')
+          expect(subject).to(eql(post_state))
         end
 
         specify do
-          TerminalPaint::Draw::FloodFill.print canvas, 3, 5, '*'
-          expect(subject).to eql post_state
+          TerminalPaint::Draw::FloodFill.print(canvas, 3, 5, '*')
+          expect(subject).to(eql(post_state))
         end
       end
 
@@ -352,7 +352,7 @@ describe TerminalPaint::Draw::FloodFill do
            'XXXXXX',
            '---X--',
            ' --X- ',
-           ' --X- '].join $/
+           ' --X- '].join($INPUT_RECORD_SEPARATOR)
         end
 
         let(:post_state) do
@@ -361,17 +361,17 @@ describe TerminalPaint::Draw::FloodFill do
            '******',
            '---*--',
            ' --*- ',
-           ' --*- '].join $/
+           ' --*- '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::FloodFill.print canvas, 3, 0, '*'
-          expect(subject).to eql post_state
+          TerminalPaint::Draw::FloodFill.print(canvas, 3, 0, '*')
+          expect(subject).to(eql(post_state))
         end
 
         specify do
-          TerminalPaint::Draw::FloodFill.print canvas, 3, 5, '*'
-          expect(subject).to eql post_state
+          TerminalPaint::Draw::FloodFill.print(canvas, 3, 5, '*')
+          expect(subject).to(eql(post_state))
         end
       end
     end

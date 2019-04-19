@@ -38,7 +38,7 @@ module TerminalPaint
       if result.success
         if @canvas
           (0...@canvas.height).each do |y|
-            @display.append_output @canvas.get_line(y).join('')
+            @display.append_output(@canvas.get_line(y).join(''))
           end
         end
       else
@@ -47,7 +47,7 @@ module TerminalPaint
               else
                 "\n#{result.pretty}\n\n#{APP_USAGE}\n"
               end
-        @display.append_error msg
+        @display.append_error(msg)
       end
       true
     end

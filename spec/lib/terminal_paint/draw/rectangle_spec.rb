@@ -8,7 +8,7 @@ describe TerminalPaint::Draw::Rectangle do
   describe '#print' do
     let(:width) { 4 }
     let(:height) { 4 }
-    let(:canvas) { TerminalPaint::Canvas.new width, height }
+    let(:canvas) { TerminalPaint::Canvas.new(width, height) }
 
     context 'invalid parameters' do
       let(:x1) { 0 }
@@ -18,30 +18,30 @@ describe TerminalPaint::Draw::Rectangle do
       let(:char) { 'X' }
 
       subject do
-        TerminalPaint::Draw::Rectangle.print canvas, x1, y1, x2, y2, char: char
+        TerminalPaint::Draw::Rectangle.print(canvas, x1, y1, x2, y2, char: char)
         print_canvas canvas
       end
 
       context 'null canvas parameter' do
         let(:canvas) { nil }
         it 'should raise argument error' do
-          expect { subject }.to raise_error ArgumentError, 'Canvas must be non null'
+          expect { subject }.to(raise_error(ArgumentError, 'Canvas must be non null'))
         end
       end
 
       context 'null char parameter' do
         let(:char) { nil }
         it 'asserts valid char' do
-          expect(TerminalPaint::Draw::Rectangle).to receive(:assert_is_char).with(nil).and_call_original
-          expect { subject }.to raise_error ArgumentError, 'invalid char'
+          expect(TerminalPaint::Draw::Rectangle).to(receive(:assert_is_char).with(nil).and_call_original)
+          expect { subject }.to(raise_error(ArgumentError, 'invalid char'))
         end
       end
 
       context 'invalid char parameter' do
         let(:char) { 1 }
         it 'asserts valid char' do
-          expect(TerminalPaint::Draw::Rectangle).to receive(:assert_is_char).with(char).and_call_original
-          expect { subject }.to raise_error ArgumentError, 'invalid char'
+          expect(TerminalPaint::Draw::Rectangle).to(receive(:assert_is_char).with(char).and_call_original)
+          expect { subject }.to(raise_error(ArgumentError, 'invalid char'))
         end
       end
 
@@ -51,8 +51,8 @@ describe TerminalPaint::Draw::Rectangle do
         let(:y1) { 3.0 }
         let(:y2) { 3.0 }
         specify do
-          expect(TerminalPaint::Draw::Rectangle).to receive(:assert_integer).with(x1, y1, x2, y2).and_call_original
-          expect { subject }.to raise_error ArgumentError, 'Coordinate must be an integer'
+          expect(TerminalPaint::Draw::Rectangle).to(receive(:assert_integer).with(x1, y1, x2, y2).and_call_original)
+          expect { subject }.to(raise_error(ArgumentError, 'Coordinate must be an integer'))
         end
       end
 
@@ -62,8 +62,8 @@ describe TerminalPaint::Draw::Rectangle do
         let(:y1) { -3 }
         let(:y2) { -3 }
         specify do
-          expect(TerminalPaint::Draw::Rectangle).to receive(:assert_positive).with(x1, y1, x2, y2).and_call_original
-          expect { subject }.to raise_error ArgumentError, 'Integer must be positive'
+          expect(TerminalPaint::Draw::Rectangle).to(receive(:assert_positive).with(x1, y1, x2, y2).and_call_original)
+          expect { subject }.to(raise_error(ArgumentError, 'Integer must be positive'))
         end
       end
     end
@@ -76,12 +76,12 @@ describe TerminalPaint::Draw::Rectangle do
           ['    ',
            ' x  ',
            '    ',
-           '    '].join $/
+           '    '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Rectangle.print canvas, 1, 1, 1, 1
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Rectangle.print(canvas, 1, 1, 1, 1)
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -90,12 +90,12 @@ describe TerminalPaint::Draw::Rectangle do
           ['    ',
            ' *  ',
            '    ',
-           '    '].join $/
+           '    '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Rectangle.print canvas, 1, 1, 1, 1, char: '*'
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Rectangle.print(canvas, 1, 1, 1, 1, char: '*')
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -104,12 +104,12 @@ describe TerminalPaint::Draw::Rectangle do
           ['    ',
            ' xxx',
            '    ',
-           '    '].join $/
+           '    '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Rectangle.print canvas, 1, 1, 3, 1
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Rectangle.print(canvas, 1, 1, 3, 1)
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -118,12 +118,12 @@ describe TerminalPaint::Draw::Rectangle do
           ['    ',
            ' x  ',
            ' x  ',
-           ' x  '].join $/
+           ' x  '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Rectangle.print canvas, 1, 1, 1, 3
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Rectangle.print(canvas, 1, 1, 1, 3)
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -132,29 +132,28 @@ describe TerminalPaint::Draw::Rectangle do
           ['xxxx',
            'x   ',
            'x   ',
-           'x   '].join $/
+           'x   '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Rectangle.print canvas, 0, 0, 50, 50
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Rectangle.print(canvas, 0, 0, 50, 50)
+          expect(subject).to(eql(expectation))
         end
       end
-
 
       context 'multiple invocations can overlap' do
         let(:expectation) do
           ['xxxx',
            'xyyy',
            'xyzz',
-           'xyz '].join $/
+           'xyz '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Rectangle.print canvas, 0, 0, 10, 10
-          TerminalPaint::Draw::Rectangle.print canvas, 1, 1, 10, 10, char: 'y'
-          TerminalPaint::Draw::Rectangle.print canvas, 2, 2, 10, 10, char: 'z'
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Rectangle.print(canvas, 0, 0, 10, 10)
+          TerminalPaint::Draw::Rectangle.print(canvas, 1, 1, 10, 10, char: 'y')
+          TerminalPaint::Draw::Rectangle.print(canvas, 2, 2, 10, 10, char: 'z')
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -164,8 +163,8 @@ describe TerminalPaint::Draw::Rectangle do
         let(:expectation) { 'x' }
 
         specify do
-          TerminalPaint::Draw::Rectangle.print canvas, 0, 0, 0, 0
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Rectangle.print(canvas, 0, 0, 0, 0)
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -176,12 +175,12 @@ describe TerminalPaint::Draw::Rectangle do
           ['xxxxxxxxxx',
            'x        x',
            'x        x',
-           'xxxxxxxxxx'].join $/
+           'xxxxxxxxxx'].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Rectangle.print canvas, 0, 0, 9, 3
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Rectangle.print(canvas, 0, 0, 9, 3)
+          expect(subject).to(eql(expectation))
         end
       end
     end

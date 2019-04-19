@@ -4,4 +4,4 @@
 require 'terminal_paint'
 
 driver = ARGV[0]
-TerminalPaint.launch driver
+TerminalPaint.launch(driver)

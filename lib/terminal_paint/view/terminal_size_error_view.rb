@@ -15,8 +15,7 @@ module TerminalPaint
 
       # @param [Display] display
       def render(display)
-        text = TEXT % { display_width: display.width, display_height: display.height,
-                        required_width: @required_width, required_height: @required_height }
+        text = format(TEXT, display_width: display.width, display_height: display.height, required_width: @required_width, required_height: @required_height)
         Draw::PaintText.print(display, 0, 0, text)
       end
     end

@@ -20,13 +20,13 @@ describe 'Non interactive app' do
     err_io.pos = old_err_pos
 
     # remove non-visible null characters that may have been inserted by TTY::Reader while rendering the prompt
-    output_string = out_io.read.gsub "\u0000", ""
+    output_string = out_io.read.delete("\u0000")
     [output_string, err_io.read]
   end
 
   let(:display) do
-    display = TerminalPaint::Display::BasicDisplay.new input_io, out_io, err_io
-    allow(display).to receive(:refresh) { out_io.truncate(0) }
+    display = TerminalPaint::Display::BasicDisplay.new(input_io, out_io, err_io)
+    allow(display).to(receive(:refresh) { out_io.truncate(0) })
     display
   end
 
@@ -38,24 +38,24 @@ describe 'Non interactive app' do
 
   context 'invalid input' do
     specify do
-      stdout, stderr = simulate_input($/)
-      expect(stdout).to eq '> '
-      expect(stderr).to include TerminalPaint::APP_USAGE
+      stdout, stderr = simulate_input($INPUT_RECORD_SEPARATOR)
+      expect(stdout).to(eq('> '))
+      expect(stderr).to(include(TerminalPaint::APP_USAGE))
 
       stdout, stderr = *simulate_input("Malformed Command\n")
-      expect(stdout).to eq '> '
-      expect(stderr).to include "MALFORMED Command"
-      expect(stderr).to include TerminalPaint::APP_USAGE
+      expect(stdout).to(eq('> '))
+      expect(stderr).to(include("MALFORMED Command"))
+      expect(stderr).to(include(TerminalPaint::APP_USAGE))
 
       stdout, stderr = *simulate_input("C 0 0 \n")
-      expect(stdout).to eq '> '
-      expect(stderr).to include 'C 0 0 Size must be > 0'
-      expect(stderr).to include TerminalPaint::APP_USAGE
+      expect(stdout).to(eq('> '))
+      expect(stderr).to(include('C 0 0 Size must be > 0'))
+      expect(stderr).to(include(TerminalPaint::APP_USAGE))
     end
   end
 
   context do
-    after { expect(err_io.string).to be_empty }
+    after { expect(err_io.string).to(be_empty) }
 
     Dir.glob(RSPEC_ROOT + "/fixtures/repl_app/*") do |test_fixture|
       it "#{File.basename(test_fixture)} fixture" do
@@ -63,8 +63,8 @@ describe 'Non interactive app' do
         expectation_text = File.open(test_fixture + '/expectation.txt').read
         stdout, stderr = *simulate_input(command_text)
 
-        expect(stdout).to eql expectation_text
-        expect(stderr).to be_empty
+        expect(stdout).to(eql(expectation_text))
+        expect(stderr).to(be_empty)
       end
     end
   end

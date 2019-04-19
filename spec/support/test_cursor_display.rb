@@ -28,15 +28,15 @@ module Test
     def getch
       test_input_io.readchar
     rescue EOFError
-      return nil
+      nil
     end
 
     ############### test methods
 
     def get_captured_output
       @display_buffer.map do |line|
-        line.map { |char| char || ' ' }.join ''
-      end.join($/)
+        line.map { |char| char || ' ' }.join('')
+      end.join($INPUT_RECORD_SEPARATOR)
     end
 
     def test_input_io

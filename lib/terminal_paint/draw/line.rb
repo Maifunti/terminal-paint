@@ -10,9 +10,9 @@ module TerminalPaint::Draw
       # Points outside the canvas will be ignored
       def print(canvas, x1, y1, x2, y2, char: TerminalPaint::DRAW_CHAR)
         raise(ArgumentError, 'Canvas must be non null') unless canvas
-        assert_is_char char
-        assert_integer x1, y1, x2, y2
-        assert_positive x1, y1, x2, y2
+        assert_is_char(char)
+        assert_integer(x1, y1, x2, y2)
+        assert_positive(x1, y1, x2, y2)
 
         if x1 != x2 && y1 == y2
           ###
@@ -47,7 +47,6 @@ module TerminalPaint::Draw
           raise(ArgumentError, 'Only Straight lines are supported')
         end
       end
-
     end
   end
 end

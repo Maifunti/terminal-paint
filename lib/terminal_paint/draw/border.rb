@@ -11,9 +11,9 @@ module TerminalPaint::Draw
     HORIZONTAL = 4
     VERTICAL = 5
 
-    STYLE = { :ascii => %w(+ + + + - |).freeze,
-              :light => %w(┐ ┘ ┌ └ ─ │).freeze,
-              :thick => %w(╗ ╝ ╔ ╚ ═ ║).freeze }
+    STYLE = { ascii: %w(+ + + + - |).freeze,
+              light: %w(┐ ┘ ┌ └ ─ │).freeze,
+              thick: %w(╗ ╝ ╔ ╚ ═ ║).freeze }
 
     # @param [Canvas] canvas
     # @param [Integer] top
@@ -23,10 +23,10 @@ module TerminalPaint::Draw
     # @param [Symbol] style. One of :ascii, :light, :thick
     def self.print(canvas, x1, y1, x2, y2, style: :ascii)
       raise(ArgumentError, 'Canvas must be non null') unless canvas
-      assert_integer x1, y1, x2, y2
-      assert_positive x1, y1, x2, y2
+      assert_integer(x1, y1, x2, y2)
+      assert_positive(x1, y1, x2, y2)
       raise(ArgumentError, 'style must be non null') unless style
-      raise(ArgumentError, 'Invalid Style') unless STYLE.has_key? style
+      raise(ArgumentError, 'Invalid Style') unless STYLE.key?(style)
 
       resolved_style = STYLE[style]
       # left & right

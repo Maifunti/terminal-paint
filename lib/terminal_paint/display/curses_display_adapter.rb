@@ -11,7 +11,7 @@ module TerminalPaint
 
       # We're using both curses keypad codes and ascii ctrl characters
       BACKSPACE = [Curses::KEY_BACKSPACE, 8]
-      ENTER = [Curses::KEY_ENTER, 13, 10, $/]
+      ENTER = [Curses::KEY_ENTER, 13, 10, $INPUT_RECORD_SEPARATOR]
       ESCAPE = [27]
       LEFT = [Curses::KEY_LEFT]
       RIGHT = [Curses::KEY_RIGHT]
@@ -24,7 +24,7 @@ module TerminalPaint
         Curses.cbreak
         Curses.noecho
 
-        @editor = Editor.new self
+        @editor = Editor.new(self)
         initialize_window
       end
 
@@ -49,16 +49,16 @@ module TerminalPaint
         return unless value
         return if y >= height
 
-        value.lines.each_with_index do |line, index|
-          break if y + index > height
+        value.lines.each_with_index do |line, row_index|
+          break if y + row_index > height
           next if line.empty?
-          line_buffer = @display_buffer[y + index]
+          line_buffer = @display_buffer[y + row_index]
 
           # clamp string to be within window dimensions to prevent overflow
           clamped_value = line.slice(0, [line.size, width - x].min)
           next if clamped_value.nil?
           clamped_value.each_char.with_index do |char, index|
-            fail if index + x >= width
+            raise if index + x >= width
             line_buffer[(x + index)] = char
           end
         end
@@ -71,18 +71,18 @@ module TerminalPaint
       end
 
       def set_prompt_area(x, y, width)
-        @editor.set_prompt_area x, y, width
+        @editor.set_prompt_area(x, y, width)
       end
 
       def erase
         @main_window.erase
-        @display_buffer.each &:clear
+        @display_buffer.each(&:clear)
       end
 
       def refresh
         display_string = @display_buffer.map do |line|
-          line.map { |char| char || ' ' }.join ''
-        end.join "\n"
+          line.map { |char| char || ' ' }.join('')
+        end.join($INPUT_RECORD_SEPARATOR)
         @main_window.setpos(0, 0)
         @main_window.addstr(display_string)
         @main_window.refresh
@@ -117,7 +117,7 @@ module TerminalPaint
         when *UP
           move(:vertical, -1)
         when /[ -~]/ # matches all printable ascii characters
-          @editor.append code unless @scroll_mode
+          @editor.append(code) unless @scroll_mode
         when nil
           # nil is returned when input stream EOF has been reached
           return false
@@ -130,7 +130,7 @@ module TerminalPaint
       private
 
       def initialize_window
-        @main_window.close if @main_window
+        @main_window&.close
         Curses.refresh
         @main_window = Curses::Window.new(0, 0, 0, 0)
         # use keypad mode so curses can convert control escape sequences to curses keypad codes
@@ -143,7 +143,7 @@ module TerminalPaint
 
       def toggle_movement_mode
         @scroll_mode = !@scroll_mode
-        @call_back_listener.set_scroll_mode @scroll_mode
+        @call_back_listener.set_scroll_mode(@scroll_mode)
         # change cursor visibility
         if @scroll_mode
           Curses.curs_set(0)
@@ -160,7 +160,7 @@ module TerminalPaint
         else
           # internal scrolling of editor
           if orientation == :horizontal
-            @editor.move by
+            @editor.move(by)
           end
         end
       end
@@ -168,7 +168,7 @@ module TerminalPaint
       def getch
         @main_window.getch
       rescue EOFError
-        return nil
+        nil
       end
     end
   end

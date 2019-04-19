@@ -13,7 +13,7 @@ module TerminalPaint
     terminal_paint --basic basic non-interactive REPL app\n\n
   QUOTE
   CURSES_DRIVER_USAGE = <<~QUOTE
-    \n\nThis driver requires the curses gem which utilizes gem native C extensions. 
+    \n\nThis driver requires the curses gem which utilizes gem native C extensions.
     To use this driver you must first install the curses gem. Run 'gem install curses'
   QUOTE
   APP_USAGE = <<~QUOTE
@@ -67,6 +67,6 @@ require 'pathname'
 PROJECT_ROOT = File.dirname(File.absolute_path(__FILE__))
 Dir.glob(PROJECT_ROOT + '/terminal_paint/**/*.rb') do |file|
   # load all files except display and win_api files
-  next if /\/terminal_paint\/display|win_api/.match file
+  next if %r{/terminal_paint/display|win_api}.match(file)
   require file
 end

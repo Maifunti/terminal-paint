@@ -6,7 +6,7 @@ require PROJECT_ROOT + '/terminal_paint/display/tty_display_adapter.rb'
 module Test
   class TTYDisplayAdapter < TerminalPaint::Display::TTYDisplayAdapter
     def self.build(width, height, stdin, stdout)
-      new width, height, stdin, stdout
+      new(width, height, stdin, stdout)
     end
 
     def initialize(width, height, stdin, stdout)
@@ -15,7 +15,7 @@ module Test
       # retrieving user input instead of the provided input IO. This setting forces it to use the provided input io
       ENV['TTY_TEST'] = 'true'
       set_test_display_dimensions(width, height)
-      super stdin, stdout
+      super(stdin, stdout)
     end
 
     # @overide
@@ -32,8 +32,8 @@ module Test
 
     def get_captured_output
       @old_buffer.map do |line|
-        line.map { |char| char || ' ' }.join ''
-      end.join($/)
+        line.map { |char| char || ' ' }.join('')
+      end.join($INPUT_RECORD_SEPARATOR)
     end
 
     def set_test_display_dimensions(width, height)

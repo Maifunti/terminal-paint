@@ -8,7 +8,7 @@ describe TerminalPaint::Draw::Line do
   describe '#print' do
     let(:width) { 4 }
     let(:height) { 4 }
-    let(:canvas) { TerminalPaint::Canvas.new width, height }
+    let(:canvas) { TerminalPaint::Canvas.new(width, height) }
 
     context 'invalid parameters' do
       let(:x1) { 0 }
@@ -18,30 +18,30 @@ describe TerminalPaint::Draw::Line do
       let(:char) { 'X' }
 
       subject do
-        TerminalPaint::Draw::Line.print canvas, x1, y1, x2, y2, char: char
+        TerminalPaint::Draw::Line.print(canvas, x1, y1, x2, y2, char: char)
         print_canvas canvas
       end
 
       context 'null canvas parameter' do
         let(:canvas) { nil }
         it 'should raise argument error' do
-          expect { subject }.to raise_error ArgumentError, 'Canvas must be non null'
+          expect { subject }.to(raise_error(ArgumentError, 'Canvas must be non null'))
         end
       end
 
       context 'null char parameter' do
         let(:char) { nil }
         it 'asserts valid char' do
-          expect(TerminalPaint::Draw::Line).to receive(:assert_is_char).with(nil).and_call_original
-          expect { subject }.to raise_error ArgumentError, 'invalid char'
+          expect(TerminalPaint::Draw::Line).to(receive(:assert_is_char).with(nil).and_call_original)
+          expect { subject }.to(raise_error(ArgumentError, 'invalid char'))
         end
       end
 
       context 'invalid char parameter' do
         let(:char) { 1 }
         it 'asserts valid char' do
-          expect(TerminalPaint::Draw::Line).to receive(:assert_is_char).with(char).and_call_original
-          expect { subject }.to raise_error ArgumentError, 'invalid char'
+          expect(TerminalPaint::Draw::Line).to(receive(:assert_is_char).with(char).and_call_original)
+          expect { subject }.to(raise_error(ArgumentError, 'invalid char'))
         end
       end
 
@@ -51,8 +51,8 @@ describe TerminalPaint::Draw::Line do
         let(:y1) { 3.0 }
         let(:y2) { 3.0 }
         specify do
-          expect(TerminalPaint::Draw::Line).to receive(:assert_integer).with(x1, y1, x2, y2).and_call_original
-          expect { subject }.to raise_error ArgumentError, 'Coordinate must be an integer'
+          expect(TerminalPaint::Draw::Line).to(receive(:assert_integer).with(x1, y1, x2, y2).and_call_original)
+          expect { subject }.to(raise_error(ArgumentError, 'Coordinate must be an integer'))
         end
       end
 
@@ -62,8 +62,8 @@ describe TerminalPaint::Draw::Line do
         let(:y1) { -3 }
         let(:y2) { -3 }
         specify do
-          expect(TerminalPaint::Draw::Line).to receive(:assert_positive).with(x1, y1, x2, y2).and_call_original
-          expect { subject }.to raise_error ArgumentError, 'Integer must be positive'
+          expect(TerminalPaint::Draw::Line).to(receive(:assert_positive).with(x1, y1, x2, y2).and_call_original)
+          expect { subject }.to(raise_error(ArgumentError, 'Integer must be positive'))
         end
       end
 
@@ -74,7 +74,7 @@ describe TerminalPaint::Draw::Line do
         let(:y2) { 4 }
 
         specify do
-          expect { subject }.to raise_error ArgumentError, 'Only Straight lines are supported'
+          expect { subject }.to(raise_error(ArgumentError, 'Only Straight lines are supported'))
         end
       end
     end
@@ -87,12 +87,12 @@ describe TerminalPaint::Draw::Line do
           ['    ',
            ' x  ',
            '    ',
-           '    '].join $/
+           '    '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Line.print canvas, 1, 1, 1, 1
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Line.print(canvas, 1, 1, 1, 1)
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -101,12 +101,12 @@ describe TerminalPaint::Draw::Line do
           ['    ',
            ' *  ',
            '    ',
-           '    '].join $/
+           '    '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Line.print canvas, 1, 1, 1, 1, char: '*'
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Line.print(canvas, 1, 1, 1, 1, char: '*')
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -115,12 +115,12 @@ describe TerminalPaint::Draw::Line do
           ['    ',
            ' xxx',
            '    ',
-           '    '].join $/
+           '    '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Line.print canvas, 1, 1, 3, 1
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Line.print(canvas, 1, 1, 3, 1)
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -129,12 +129,12 @@ describe TerminalPaint::Draw::Line do
           ['    ',
            ' xxx',
            '    ',
-           '    '].join $/
+           '    '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Line.print canvas, 3, 1, 1, 1
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Line.print(canvas, 3, 1, 1, 1)
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -143,12 +143,12 @@ describe TerminalPaint::Draw::Line do
           ['    ',
            ' xxx',
            '    ',
-           '    '].join $/
+           '    '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Line.print canvas, 1, 1, 50, 1
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Line.print(canvas, 1, 1, 50, 1)
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -157,12 +157,12 @@ describe TerminalPaint::Draw::Line do
           ['    ',
            ' x  ',
            ' x  ',
-           ' x  '].join $/
+           ' x  '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Line.print canvas, 1, 1, 1, 3
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Line.print(canvas, 1, 1, 1, 3)
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -171,12 +171,12 @@ describe TerminalPaint::Draw::Line do
           ['    ',
            ' x  ',
            ' x  ',
-           ' x  '].join $/
+           ' x  '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Line.print canvas, 1, 3, 1, 1
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Line.print(canvas, 1, 3, 1, 1)
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -185,12 +185,12 @@ describe TerminalPaint::Draw::Line do
           ['    ',
            ' x  ',
            ' x  ',
-           ' x  '].join $/
+           ' x  '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Line.print canvas, 1, 1, 1, 50
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Line.print(canvas, 1, 1, 1, 50)
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -199,15 +199,15 @@ describe TerminalPaint::Draw::Line do
           ['*xx&',
            '*  &',
            '*  &',
-           '===&'].join $/
+           '===&'].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Line.print canvas, 0, 0, 3, 0
-          TerminalPaint::Draw::Line.print canvas, 0, 0, 0, 3, char: '*'
-          TerminalPaint::Draw::Line.print canvas, 0, 3, 3, 3, char: '='
-          TerminalPaint::Draw::Line.print canvas, 3, 0, 3, 3, char: '&'
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Line.print(canvas, 0, 0, 3, 0)
+          TerminalPaint::Draw::Line.print(canvas, 0, 0, 0, 3, char: '*')
+          TerminalPaint::Draw::Line.print(canvas, 0, 3, 3, 3, char: '=')
+          TerminalPaint::Draw::Line.print(canvas, 3, 0, 3, 3, char: '&')
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -217,8 +217,8 @@ describe TerminalPaint::Draw::Line do
         let(:expectation) { 'x' }
 
         specify do
-          TerminalPaint::Draw::Line.print canvas, 0, 0, 0, 0
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Line.print(canvas, 0, 0, 0, 0)
+          expect(subject).to(eql(expectation))
         end
       end
 
@@ -229,13 +229,13 @@ describe TerminalPaint::Draw::Line do
           ['          ',
            'xxxxxxxxxx',
            '    x     ',
-           '    x     '].join $/
+           '    x     '].join($INPUT_RECORD_SEPARATOR)
         end
 
         specify do
-          TerminalPaint::Draw::Line.print canvas, 0, 1, 9, 1
-          TerminalPaint::Draw::Line.print canvas, 4, 1, 4, 3
-          expect(subject).to eql expectation
+          TerminalPaint::Draw::Line.print(canvas, 0, 1, 9, 1)
+          TerminalPaint::Draw::Line.print(canvas, 4, 1, 4, 3)
+          expect(subject).to(eql(expectation))
         end
       end
     end

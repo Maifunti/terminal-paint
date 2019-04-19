@@ -6,9 +6,9 @@ module TerminalPaint::Draw
 
     def self.print(canvas, target_x, target_y, replacement_color)
       raise(ArgumentError, 'Canvas must be non null') unless canvas
-      assert_integer target_x, target_y
-      assert_positive target_x, target_y
-      assert_is_char replacement_color
+      assert_integer(target_x, target_y)
+      assert_positive(target_x, target_y)
+      assert_is_char(replacement_color)
 
       return if canvas.outside?(target_x, target_y)
 

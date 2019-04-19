@@ -45,7 +45,7 @@ module TerminalPaint
         msg = if result.command.chomp.empty?
                 "#{APP_USAGE}\n"
               else
-                "\n#{result.pretty}\n\n#{APP_USAGE}\n"
+                "\n#{result.formatted_result}\n\n#{APP_USAGE}\n"
               end
         @display.append_error(msg)
       end

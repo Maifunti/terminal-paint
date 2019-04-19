@@ -25,7 +25,7 @@ describe 'Non interactive app' do
   end
 
   let(:display) do
-    display = TerminalPaint::Display::BasicDisplay.new(input_io, out_io, err_io)
+    display = TerminalPaint::Display::BasicDisplayAdapter.new(input_io, out_io, err_io)
     allow(display).to(receive(:refresh) { out_io.truncate(0) })
     display
   end

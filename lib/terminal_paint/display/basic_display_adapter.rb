@@ -4,7 +4,7 @@ require 'tty-reader'
 
 module TerminalPaint
   module Display
-    class BasicDisplay
+    class BasicDisplayAdapter
       def initialize(input = $stdin, output = $stdout, error = $stderr)
         @reader = TTY::Reader.new(input: input, output: output)
         @output = output

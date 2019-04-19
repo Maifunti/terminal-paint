@@ -52,7 +52,7 @@ module TerminalPaint
       InteractiveApp.run(Display::TTYDisplayAdapter.new)
     when '--basic', nil
       require_relative 'terminal_paint/display/basic_display_adapter.rb'
-      BasicApp.run(Display::BasicDisplay.new)
+      BasicApp.run(Display::BasicDisplayAdapter.new)
     else
       puts COMMAND_LINE_USAGE
     end

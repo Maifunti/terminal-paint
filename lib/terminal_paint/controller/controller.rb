@@ -3,7 +3,7 @@
 module TerminalPaint
   class Controller
     class Result
-      attr_reader :command, :success, :error
+      attr_reader :command, :success
 
       def initialize(command)
         @command = command
@@ -20,24 +20,19 @@ module TerminalPaint
         self
       end
 
-      def pretty
+      def formatted_result
         @success ? @command : "#{@command} #{@err_io}"
       end
     end
 
-    attr_reader :painting
+    attr_reader :canvas
 
     def initialize(interface)
       @call_back_listener = interface
     end
 
-    def scroll(x_del, y_del)
-      @call_back_listener.scroll_horizontal(x_del)
-      @call_back_listener.scroll_vertical(y_del)
-    end
-
     # @param [String] user_input
-    # @return Array<command, result>
+    # @return [Result]
     def process_string(user_input)
       command, *arguments = user_input.to_s.strip.split(' ')
       return Result.new('').for_failure("Bad Input: '#{user_input}'") unless command

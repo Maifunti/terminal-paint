@@ -44,8 +44,8 @@ Provided as a fallback for environmments that can't utilize the `curses` gem (i.
 - Git repo is not synced to a public repository in keeping with requirements
 
 # Known Issues
-* dynamic resizing is broken for users using windows consoles https://github.com/PowerShell/PowerShell/issues/8975
-avoid resizing console window or use terminal_paint_basic 
+* dynamic resizing is broken for users on windows consoles https://github.com/PowerShell/PowerShell/issues/8975.
+avoid resizing console window or use terminal_paint --basic 
 * dynamic resizing is partially broken using the --tty-cursor display driver. Users can hit any key after resizing their terminal window to fix a corrupt display.
 The issue is caused by the way ruby delivers signal interrupts. There is no simple fix for the issue outside of making the application multi-threaded. I've forgone that for this release.
  

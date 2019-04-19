@@ -27,9 +27,9 @@ module TerminalPaint
       UP = ["\e[A", "\u00E0H"]
 
       # Callers must call #close when finished
-      def initialize(input, output)
-        @input = input || $stdin
-        @output = output || $stdout
+      def initialize(input=$stdin, output=$stdout)
+        @input = input
+        @output = output
 
         @reader = TTY::Reader.new input: @input, output: @output, interrupt: :exit, track_history: false
 

@@ -16,4 +16,5 @@ end
 group :test do
   gem 'rspec'
   gem 'strings'
+  gem 'simplecov'
 end

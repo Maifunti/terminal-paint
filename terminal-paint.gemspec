@@ -26,5 +26,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency('tty-cursor')
   spec.add_dependency('tty-reader')
   spec.add_dependency('tty-screen')
-  spec.add_dependency('tty-prompt')
 end

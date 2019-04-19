@@ -49,7 +49,7 @@ module TerminalPaint
       end
     when '--tty-cursor'
       require_relative 'terminal_paint/display/tty_display_adapter.rb'
-      InteractiveApp.run(Display::TTYDisplayAdapter.new(IO.new(1), $stdout))
+      InteractiveApp.run(Display::TTYDisplayAdapter.new)
     when '--basic', nil
       require_relative 'terminal_paint/display/basic_display_adapter.rb'
       BasicApp.run(Display::BasicDisplay.new)

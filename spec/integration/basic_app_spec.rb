@@ -19,41 +19,36 @@ describe 'Non interactive app' do
     out_io.pos = old_out_pos
     err_io.pos = old_err_pos
 
-    [out_io.read, err_io.read]
+    # remove non-visible null characters that may have been inserted by TTY::Reader while rendering the prompt
+    output_string = out_io.read.gsub "\u0000", ""
+    [output_string, err_io.read]
   end
 
-  let(:console_double) do
-    console = instance_double(TerminalPaint::Display::BasicDisplay)
-    allow(console).to receive(:get_user_input).with(TerminalPaint::PROMPT) do
-      input_io.readline
-    end
-    allow(console).to receive(:append_error) { |string| err_io.puts string }
-    allow(console).to receive(:append_output) { |string| out_io.puts string }
-    allow(console).to receive(:refresh) { out_io.truncate(0) }
-    console
+  let(:display) do
+    display = TerminalPaint::Display::BasicDisplay.new input_io, out_io, err_io
+    allow(display).to receive(:refresh) { out_io.truncate(0) }
+    display
   end
 
-  let(:mock_stdout) { StringIO.new }
   let(:input_io) { StringIO.new }
   let(:out_io) { StringIO.new }
   let(:err_io) { StringIO.new }
 
-  subject { -> { TerminalPaint::BasicApp.run(console_double) } }
+  subject { -> { TerminalPaint::BasicApp.run(display) } }
 
   context 'invalid input' do
     specify do
-      stdout, stderr = *simulate_input($/)
-      expect(stdout).to be_empty
-      expect(stderr).to include "Bad Input: \'\n\'"
+      stdout, stderr = simulate_input($/)
+      expect(stdout).to eq '> '
       expect(stderr).to include TerminalPaint::APP_USAGE
 
       stdout, stderr = *simulate_input("Malformed Command\n")
-      expect(stdout).to be_empty
+      expect(stdout).to eq '> '
       expect(stderr).to include "MALFORMED Command"
       expect(stderr).to include TerminalPaint::APP_USAGE
 
       stdout, stderr = *simulate_input("C 0 0 \n")
-      expect(stdout).to be_empty
+      expect(stdout).to eq '> '
       expect(stderr).to include 'C 0 0 Size must be > 0'
       expect(stderr).to include TerminalPaint::APP_USAGE
     end

@@ -17,13 +17,13 @@ Gem::Specification.new do |spec|
   spec.description = 'Terminal Paint'
   spec.license = "MIT"
 
-  spec.files = []
-  spec.executables = ['terminal_paint.rb']
+  spec.files += Dir.glob("lib/**/*")
+  spec.executables = ['terminal-paint']
   spec.require_paths = ["lib"]
 
   # this dependency is optional
   # spec.add_dependency('curses', '1.2.7')
-  spec.add_dependency('tty-cursor')
-  spec.add_dependency('tty-reader')
-  spec.add_dependency('tty-screen')
+  spec.add_dependency('tty-cursor', '~>0.6')
+  spec.add_dependency('tty-reader', '~>0.5')
+  spec.add_dependency('tty-screen', '~>0.6')
 end

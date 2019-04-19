@@ -5,7 +5,7 @@ require 'spec_helper'
 context 'invocation ' do
   before { stub_const 'ARGV', arguments }
 
-  subject { load File.join(PROJECT_ROOT, '../bin/terminal_paint.rb') }
+  subject { load File.join(PROJECT_ROOT, '../bin/terminal-paint') }
 
   context 'bad arguments' do
     let(:arguments) { %w(--illegal-argument) }

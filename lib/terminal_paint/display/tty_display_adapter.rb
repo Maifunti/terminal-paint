@@ -7,6 +7,7 @@ module TerminalPaint
     class TTYDisplayAdapter
       require 'tty-cursor'
       require 'tty-screen'
+      require 'tty-reader'
       require 'io/console'
       require_relative 'editor.rb'
       require_relative '../os.rb'

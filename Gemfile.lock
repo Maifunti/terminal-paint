@@ -2,9 +2,9 @@ PATH
   remote: .
   specs:
     terminal-paint (0.0.1)
-      tty-cursor
-      tty-reader
-      tty-screen
+      tty-cursor (~> 0.6)
+      tty-reader (~> 0.5)
+      tty-screen (~> 0.6)
 
 GEM
   remote: https://rubygems.org/

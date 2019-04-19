@@ -27,11 +27,15 @@ Provided as a fallback for environmments that can't utilize the `curses` gem (i.
 * linux based os. Tested on native Ubuntu and Windows Subsystem for Linux Ubuntu. ANSI compatible terminal 
 * Win console / Powershell support is limited. Tests pass with MRI ruby but expect to run in to compatibility issues with jruby/powershell.  
 
-### Using the optional ncurses driver
+# Installation
+* cd to project directory and run `gem build terminal-paint`. This will create a gem file `terminal-paint-0.0.1.gem`
+* run `gem install terminal-paint-0.0.1.gem`
+
+### Using the optional ncurses driver (only available with MRI Ruby)
 #### Installation on ubuntu
   * make sure libncursesw is installed `sudo apt install libnursesw-dev`
   * install ruby 
-  * cd to project directory and run `gem build`. This will create a gem file `terminal-paint-0.0.1.gem`
+  * cd to project directory and run `gem build terminal-paint`. This will create a gem file `terminal-paint-0.0.1.gem`
   * run `gem install terminal-paint-0.0.1.gem` 
 #### Common Issues
   * If you built the `curses` gem before ncursesw was installed, it's possible that the native extension linked to the older ncurses library instead of ncursesw. To fix this uninstall and reinstall the curses gem. 

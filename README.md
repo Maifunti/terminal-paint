@@ -1,8 +1,8 @@
 # 
 Terminal Paint can be run in 3 different modes
-* terminal_paint --ncurses
-* terminal_paint --tty-cursor
-* terminal_paint --basic
+* `terminal_paint --ncurses`
+* `terminal_paint --tty-cursor` * **recommended**
+* `terminal_paint --basic` * default
 
 ## 1. terminal_paint --ncurses  
 #### Interactive terminal application using curses gem / libncursesw5-dev. 

@@ -97,12 +97,12 @@ describe TerminalPaint::Controller do
         end
 
         context 'good arguments' do
-          let(:command){ 'L 0 50 50 50' }
+          let(:command){ 'L 1 50 50 50' }
 
           specify do
             expect(TerminalPaint::Draw::Line).to receive(:print)
-              .with(controller.canvas, 0, 50, 50, 50).and_call_original
-            expect(subject.formatted_message).to eq 'L 0 50 50 50'
+              .with(controller.canvas, 0, 49, 49, 49).and_call_original
+            expect(subject.formatted_message).to eq 'L 1 50 50 50'
             expect(subject.success).to be true
           end
         end
@@ -138,12 +138,12 @@ describe TerminalPaint::Controller do
         end
 
         context 'good arguments' do
-          let(:command){ 'R 0 50 50 50' }
+          let(:command){ 'R 1 50 50 50' }
 
           specify do
             expect(TerminalPaint::Draw::Rectangle).to receive(:print)
-              .with(controller.canvas, 0, 50, 50, 50).and_call_original
-            expect(subject.formatted_message).to eq 'R 0 50 50 50'
+              .with(controller.canvas, 0, 49, 49, 49).and_call_original
+            expect(subject.formatted_message).to eq 'R 1 50 50 50'
             expect(subject.success).to be true
           end
         end
@@ -179,12 +179,12 @@ describe TerminalPaint::Controller do
         end
 
         context 'good arguments' do
-          let(:command){ 'B 0 50 *' }
+          let(:command){ 'B 1 50 *' }
 
           specify do
             expect(TerminalPaint::Draw::FloodFill).to receive(:print)
-              .with(controller.canvas, 0, 50, '*').and_call_original
-            expect(subject.formatted_message).to eq 'B 0 50 *'
+              .with(controller.canvas, 0, 49, '*').and_call_original
+            expect(subject.formatted_message).to eq 'B 1 50 *'
             expect(subject.success).to be true
           end
         end

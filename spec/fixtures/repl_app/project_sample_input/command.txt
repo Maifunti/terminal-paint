@@ -1,0 +1,1 @@
+../../integration/project_sample_input/command.txt

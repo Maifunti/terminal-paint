@@ -68,8 +68,12 @@ module TerminalPaint
           return result.for_failure('Illegal Arguments. Size must be an integer')
         end
 
-        x1, y1, x2, y2 = *arguments.map(&:to_i)
+        coordinates = extract_coordinates(arguments)
+        if coordinates.any? { |arg| arg < 0 }
+          return result.for_failure('Illegal Arguments. Coordinates must be > 0')
+        end
 
+        x1, y1, x2, y2 = *coordinates
         if x1 != x2 && y1 != y2
           return result.for_failure("Illegal Arguments. Arguments '#{arguments}' do not specify a straight line")
         end
@@ -82,7 +86,12 @@ module TerminalPaint
           return result.for_failure('Illegal Arguments. Size must be an integer')
         end
 
-        x1, y1, x2, y2 = *arguments.map(&:to_i)
+        coordinates = extract_coordinates(arguments)
+        if coordinates.any? { |arg| arg < 0 }
+          return result.for_failure('Illegal Arguments. Coordinates must be > 0')
+        end
+
+        x1, y1, x2, y2 = *coordinates
 
         Draw::Rectangle.print(@canvas, x1, y1, x2, y2)
       when 'B'
@@ -92,7 +101,12 @@ module TerminalPaint
           return result.for_failure('Illegal Arguments. Size must be an integer')
         end
 
-        x, y = *arguments[0..1].map(&:to_i)
+        coordinates = extract_coordinates(arguments[0..1])
+        if coordinates.any? { |arg| arg < 0 }
+          return result.for_failure('Illegal Arguments. Coordinates must be > 0')
+        end
+
+        x, y = *coordinates
         replacement_color = arguments[2]
 
         Draw::FloodFill.print(@canvas, x, y, replacement_color)
@@ -103,6 +117,13 @@ module TerminalPaint
       end
 
       result.for_success
+    end
+
+    # Our app internally uses a coordinate system with (0,0) as origin.
+    # User input uses (1,1) as origin.
+    # @returns the adjusted coordinates for internal use
+    def extract_coordinates(args)
+      args.map(&:to_i).map { |int| int - 1 }
     end
   end
 end

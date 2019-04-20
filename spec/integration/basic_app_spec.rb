@@ -62,7 +62,6 @@ describe 'Non interactive app' do
         command_text = File.open(RSPEC_ROOT + '/fixtures/integration/' + File.basename(test_fixture) + '/command.txt').read
         expectation_text = File.open(test_fixture + '/expectation.txt').read
         stdout, stderr = *simulate_input(command_text)
-
         expect(stdout).to(eql(expectation_text))
         expect(stderr).to(be_empty)
       end

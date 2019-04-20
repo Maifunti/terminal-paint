@@ -3,7 +3,7 @@
 module TerminalPaint
   module View
     class PromptView
-      DISPLAYED_HISTORY_COUNT = 3
+      DISPLAYED_HISTORY_COUNT = 4
       # maximum width of displayed text in this view
       MAX_WIDTH = (APP_USAGE.lines + PROMPT.lines).map(&:size).max
       # maximum height of displayed text in this view
@@ -39,7 +39,7 @@ module TerminalPaint
           prompt_text = history_text.append(PROMPT).join($/)
         else
           # special text when last command was an error
-          prompt_text = APP_USAGE + PROMPT
+          prompt_text = "#{@history.last.formatted_message}\n\n#{APP_USAGE}#{PROMPT}"
         end
 
         top = bottom - prompt_text.lines.size - (INTERNAL_PADDING * 2)
